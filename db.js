@@ -1,17 +1,24 @@
 // ════════════════════════════════════════════════════════════════════
-// Sylanty — Base de données (SQLite via node:sqlite, sans dépendance)
+// Sylanty — Base de données (SQLite via sql.js, sans compilation native)
 // Schéma + seed des données de démonstration (entreprise "Élec Pro Lyon")
 // ════════════════════════════════════════════════════════════════════
-import { DatabaseSync } from 'node:sqlite';
+import { openDatabase } from './sqlite-compat.js';
 import { randomUUID, scryptSync, randomBytes } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const db = new DatabaseSync(path.join(__dirname, 'sylanty.db'));
 
-db.exec('PRAGMA journal_mode = WAL;');
-db.exec('PRAGMA foreign_keys = ON;');
+// La base est initialisée de façon asynchrone (sql.js charge un WASM).
+// `db` est rempli par initDatabase() appelé au démarrage du serveur.
+export let db = null;
+
+export async function initDatabase() {
+  if (db) return db;
+  db = await openDatabase(path.join(__dirname, 'sylanty.db'));
+  db.exec('PRAGMA foreign_keys = ON;');
+  return db;
+}
 
 // ── Hash mot de passe (scrypt, intégré à Node) ──────────────────────
 export function hashPassword(pw) {
@@ -372,7 +379,9 @@ export function seedDemo() {
 
 // CLI: node db.js --seed
 if (process.argv.includes('--seed')) {
+  await initDatabase();
   initSchema();
   seedDemo();
+  db.saveNow();
   console.log('✓ Base initialisée');
 }

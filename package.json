@@ -4,9 +4,6 @@
   "description": "Sylanty — Conformité BTP & DOE numérique (full-stack)",
   "type": "module",
   "main": "server.js",
-  "engines": {
-    "node": ">=22.5.0"
-  },
   "scripts": {
     "start": "node server.js",
     "seed": "node db.js --seed"
@@ -14,7 +11,7 @@
   "dependencies": {
     "express": "^4.19.2",
     "multer": "^1.4.5-lts.1",
-    "pdf-parse": "^2.4.5",
-    "pdfkit": "^0.18.0"
+    "pdfkit": "^0.18.0",
+    "sql.js": "^1.14.1"
   }
 }

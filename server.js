@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════════════
-// Sylanty — Serveur back-end (Express + node:sqlite)
+// Sylanty — Serveur back-end (Express + sql.js)
 // API REST complète : auth, conformité, salariés, chantiers,
 // sous-traitance, risques, DOE/passeports, partages, notifications.
 // ════════════════════════════════════════════════════════════════════
@@ -10,13 +10,15 @@ import path from 'node:path';
 import fs from 'node:fs';
 import { createHmac, randomUUID } from 'node:crypto';
 import PDFDocument from 'pdfkit';
-import { db, initSchema, seedDemo, hashPassword, verifyPassword } from './db.js';
+import { db, initDatabase, initSchema, seedDemo, hashPassword, verifyPassword } from './db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SECRET = process.env.SYLANTY_SECRET || 'sylanty-dev-secret-change-me';
 
+// La base sql.js s'initialise de façon asynchrone, puis on seed.
+await initDatabase();
 initSchema();
 seedDemo();
 
