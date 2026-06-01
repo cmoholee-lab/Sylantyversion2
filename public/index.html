@@ -1,0 +1,3041 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sylanty — Conformité BTP & DOE numérique conforme au DPP européen</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e1b2e;--navy2:#16263d;
+  --bg:#f4f6f9;--card:#fff;--line:#e4e9f0;--line2:#d2dae6;
+  --ink:#0e1b2e;--ink2:#4a5870;--ink3:#8a96a8;
+  --brand:#1f6feb;--brand2:#4a90f0;--brand-dk:#16489c;
+  --teal:#0fb5a0;--gold:#e0a829;
+  --ok:#1aa06d;--ok-bg:#e6f6ef;
+  --warn:#d98316;--warn-bg:#fdf2e2;
+  --crit:#d63b3b;--crit-bg:#fcebeb;
+  --obl:#1f6feb;--obl-bg:#e9f1fe;
+  --shadow:0 1px 3px rgba(14,27,46,.06),0 4px 16px rgba(14,27,46,.05);
+  --shadow-lg:0 8px 40px rgba(14,27,46,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;font-size:14px;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Sora',sans-serif}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+a{color:inherit;text-decoration:none}
+.hidden{display:none!important}
+.screen{display:none}
+.screen.active{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;border-radius:10px;transition:all .15s;font-size:14px;white-space:nowrap}
+.btn-sm{padding:7px 14px;font-size:13px;border-radius:8px}
+.btn-md{padding:11px 22px}
+.btn-lg{padding:15px 30px;font-size:15px;border-radius:12px}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 2px 12px rgba(31,111,235,.35)}
+.btn-primary:hover{background:var(--brand-dk);transform:translateY(-1px)}
+.btn-ghost{color:#fff;border:1px solid rgba(255,255,255,.25)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-outline{border:1.5px solid var(--line2);color:var(--ink2);background:#fff}
+.btn-outline:hover{border-color:var(--brand);color:var(--brand)}
+.btn-white{background:#fff;color:var(--navy)}
+.btn-danger{background:var(--crit);color:#fff}
+.btn-ok{background:var(--ok);color:#fff}
+
+.logo{font-family:'Sora';font-weight:800;font-size:21px;color:#fff;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--teal));display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;box-shadow:0 2px 12px rgba(31,111,235,.4)}
+.logo .dot{color:var(--teal)}
+
+/* LANDING */
+.lp-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:24px;padding:0 40px;height:68px;background:rgba(14,27,46,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+.lp-nav-links{display:flex;gap:28px;margin-left:20px}
+.lp-nav-links a{color:rgba(255,255,255,.7);font-size:14px;font-weight:500}
+.lp-nav-links a:hover{color:#fff}
+.lp-nav-cta{margin-left:auto;display:flex;gap:12px;align-items:center}
+.hero{background:radial-gradient(ellipse 120% 80% at 70% -10%,#1c3a5e,transparent),linear-gradient(165deg,var(--navy) 0%,#0a1422 100%);color:#fff;padding:150px 40px 100px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,black,transparent);mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,black,transparent)}
+.hero-inner{max-width:1180px;margin:0 auto;position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(15,181,160,.14);border:1px solid rgba(15,181,160,.3);color:#5fe0ce;font-size:12.5px;font-weight:600;padding:6px 14px;border-radius:30px;margin-bottom:24px}
+.hero h1{font-size:54px;line-height:1.05;font-weight:800;letter-spacing:-.03em;margin-bottom:22px}
+.hero h1 .hl{background:linear-gradient(120deg,var(--brand2),var(--teal));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.sub{font-size:18px;color:rgba(255,255,255,.72);font-weight:300;margin-bottom:34px;max-width:520px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-trust{margin-top:30px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.6)}
+.hero-trust span{display:flex;align-items:center;gap:7px}
+.hero-visual{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:26px;backdrop-filter:blur(8px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.hv-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.hv-co{font-weight:600;font-size:15px;color:#fff}
+.hv-naf{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+.hv-ring-wrap{display:flex;align-items:center;gap:22px;margin-bottom:22px}
+.ring{position:relative;flex-shrink:0}
+.ring svg{transform:rotate(-90deg)}
+.ring-val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-val .n{font-family:'Sora';font-weight:800;color:#fff;line-height:1}
+.ring-val .l{font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.hv-legend{flex:1;display:flex;flex-direction:column;gap:9px}
+.hv-leg-item{display:flex;align-items:center;gap:9px;font-size:12.5px;color:rgba(255,255,255,.8)}
+.hv-leg-item .ic{width:18px;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px}
+.hv-alerts{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;display:flex;flex-direction:column;gap:8px}
+.hv-alert{display:flex;align-items:center;gap:10px;font-size:12.5px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.04);padding:8px 11px;border-radius:9px;border-left:3px solid}
+
+.section{max-width:1180px;margin:0 auto;padding:90px 40px}
+.section-tag{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--brand);text-align:center;margin-bottom:14px}
+.section-h{font-family:'Sora';font-size:38px;font-weight:800;text-align:center;letter-spacing:-.02em;margin-bottom:16px;line-height:1.1}
+.section-sub{text-align:center;color:var(--ink2);font-size:17px;max-width:620px;margin:0 auto 56px;font-weight:300}
+.gain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.gain-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 26px;box-shadow:var(--shadow);transition:all .2s}
+.gain-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--brand2)}
+.gain-ic{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:23px;margin-bottom:18px}
+.gain-card h3{font-size:19px;font-weight:700;margin-bottom:10px}
+.gain-card p{color:var(--ink2);font-size:14.5px}
+.how{background:var(--navy);color:#fff}
+.how .section-h{color:#fff}
+.how .section-tag{color:var(--teal)}
+.how .section-sub{color:rgba(255,255,255,.65)}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.how-step{padding:26px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px}
+.how-num{font-family:'Sora';font-size:13px;font-weight:700;color:var(--teal);margin-bottom:12px}
+.how-step h4{font-size:16px;margin-bottom:8px}
+.how-step p{font-size:13.5px;color:rgba(255,255,255,.6)}
+
+.pricing-wrap{display:flex;justify-content:center}
+.price-card{background:var(--card);border:2px solid var(--brand);border-radius:24px;padding:42px 44px;max-width:440px;width:100%;box-shadow:0 20px 60px rgba(31,111,235,.18);position:relative;overflow:hidden}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--brand),var(--teal))}
+.price-ribbon{position:absolute;top:22px;right:-38px;background:var(--teal);color:#fff;font-size:11px;font-weight:700;padding:5px 44px;transform:rotate(45deg);letter-spacing:.05em}
+.price-plan{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--brand);margin-bottom:8px}
+.price-amount{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+.price-amount .num{font-family:'Sora';font-size:62px;font-weight:800;letter-spacing:-.03em}
+.price-amount .cur{font-family:'Sora';font-size:30px;font-weight:700}
+.price-amount .per{color:var(--ink3);font-size:15px;font-weight:500}
+.price-note{color:var(--ink3);font-size:13px;margin-bottom:26px}
+.price-feats{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:30px}
+.price-feats li{display:flex;align-items:flex-start;gap:11px;font-size:14.5px;color:var(--ink2)}
+.price-feats li .chk{color:var(--ok);flex-shrink:0;margin-top:1px;font-weight:700}
+.price-card .btn{width:100%}
+.lp-footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:40px;font-size:13px;border-top:1px solid rgba(255,255,255,.08)}
+
+/* AUTH */
+.auth-wrap{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.auth-side{background:linear-gradient(165deg,var(--navy),#0a1422);color:#fff;padding:54px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.auth-side::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 30% 20%,rgba(31,111,235,.2),transparent 45%),radial-gradient(circle at 80% 80%,rgba(15,181,160,.15),transparent 45%)}
+.auth-side-content{position:relative;margin-top:auto}
+.auth-side h2{font-size:30px;font-weight:800;line-height:1.15;margin:20px 0 16px}
+.auth-side p{color:rgba(255,255,255,.65);font-size:15px;font-weight:300}
+.auth-quote{margin-top:34px;padding:22px;background:rgba(255,255,255,.05);border-radius:14px;border-left:3px solid var(--teal);font-size:14px;color:rgba(255,255,255,.85);font-style:italic}
+.auth-main{padding:54px 60px;overflow-y:auto;display:flex;flex-direction:column;justify-content:center}
+.auth-card{max-width:440px;width:100%;margin:0 auto}
+.auth-steps{display:flex;gap:6px;margin-bottom:34px}
+.auth-step-dot{height:5px;flex:1;border-radius:3px;background:var(--line2);transition:background .3s}
+.auth-step-dot.done{background:var(--ok)}
+.auth-step-dot.active{background:var(--brand)}
+.auth-card h1{font-size:27px;font-weight:800;margin-bottom:8px}
+.auth-card .lead{color:var(--ink2);margin-bottom:30px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:7px}
+.field input,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--line2);border-radius:10px;font-family:inherit;font-size:14.5px;color:var(--ink);background:#fff}
+.field input:focus,.field select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(31,111,235,.1)}
+.field .hint{font-size:12px;color:var(--ink3);margin-top:5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.naf-preview{background:var(--obl-bg);border:1px solid #c4dcfb;border-radius:11px;padding:14px 16px;margin:6px 0 20px;font-size:13px;color:var(--brand-dk)}
+
+/* APP SHELL */
+.app{display:none;min-height:100vh}
+.app.active{display:grid;grid-template-columns:248px 1fr}
+.sidebar{background:var(--navy);color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sb-logo{padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-co{padding:16px 22px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:11px}
+.sb-co-av{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--teal));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex-shrink:0}
+.sb-co-info{min-width:0}
+.sb-co-name{font-size:13.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-co-naf{font-size:11px;color:rgba(255,255,255,.5)}
+.sb-nav{padding:14px 12px;flex:1}
+.sb-group-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);padding:14px 12px 6px}
+.sb-link{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:rgba(255,255,255,.72);font-size:14px;font-weight:500;cursor:pointer;transition:all .13s;margin-bottom:2px;width:100%;text-align:left}
+.sb-link:hover{background:rgba(255,255,255,.07);color:#fff}
+.sb-link.active{background:var(--brand);color:#fff}
+.sb-link .ic{font-size:16px;width:20px;text-align:center}
+.sb-link .badge{margin-left:auto;background:var(--crit);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px}
+.sb-link.active .badge{background:rgba(255,255,255,.25)}
+.sb-sub{padding-left:32px}
+.sb-sublink{display:flex;align-items:center;gap:9px;padding:7px 12px;border-radius:8px;color:rgba(255,255,255,.55);font-size:13px;cursor:pointer;margin-bottom:1px;width:100%;text-align:left}
+.sb-sublink:hover{color:#fff;background:rgba(255,255,255,.05)}
+.sb-sublink.active{color:var(--teal);font-weight:600}
+.sb-footer{padding:14px;border-top:1px solid rgba(255,255,255,.08)}
+.sb-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:9px;cursor:pointer}
+.sb-user:hover{background:rgba(255,255,255,.06)}
+.sb-user-av{width:32px;height:32px;border-radius:50%;background:#2a4a72;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.sb-user-info{min-width:0;flex:1}
+.sb-user-name{font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-user-role{font-size:11px;color:rgba(255,255,255,.5)}
+
+.main-area{overflow-y:auto;height:100vh}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(244,246,249,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:16px 32px;display:flex;align-items:center;gap:16px}
+.topbar h1{font-size:21px;font-weight:700}
+.topbar .crumb{font-size:12.5px;color:var(--ink3);margin-bottom:1px}
+.topbar-actions{margin-left:auto;display:flex;gap:10px;align-items:center}
+.bell{position:relative;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer}
+.bell:hover{border-color:var(--brand)}
+.bell .dot{position:absolute;top:9px;right:10px;width:8px;height:8px;background:var(--crit);border-radius:50%;border:2px solid #fff}
+.page{padding:28px 32px 60px}
+.page-section{display:none}
+.page-section.active{display:block;animation:fade .3s ease}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.card-pad{padding:22px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kpi-label{font-size:12.5px;color:var(--ink2);font-weight:500}
+.kpi-ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.kpi-val{font-family:'Sora';font-size:30px;font-weight:800;line-height:1}
+.kpi-sub{font-size:12px;color:var(--ink3);margin-top:4px}
+
+.score-hero{background:linear-gradient(135deg,var(--navy),#15314f);color:#fff;border-radius:18px;padding:28px;display:flex;align-items:center;gap:32px;position:relative;overflow:hidden}
+.score-hero::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(15,181,160,.25),transparent 70%)}
+.score-ring-lg{position:relative;flex-shrink:0}
+.score-ring-lg svg{transform:rotate(-90deg)}
+.score-ring-val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-ring-val .n{font-family:'Sora';font-size:42px;font-weight:800;line-height:1}
+.score-ring-val .l{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6)}
+.score-info{flex:1;position:relative;z-index:1}
+.score-info h2{font-size:23px;font-weight:800;margin-bottom:6px}
+.score-info .desc{color:rgba(255,255,255,.7);font-size:14px;margin-bottom:18px}
+.score-bars{display:flex;flex-direction:column;gap:11px}
+.score-bar-row{display:flex;align-items:center;gap:12px;font-size:13px}
+.score-bar-row .lab{width:170px;color:rgba(255,255,255,.8)}
+.score-bar-track{flex:1;height:7px;background:rgba(255,255,255,.12);border-radius:5px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:5px;transition:width .8s ease}
+.score-bar-row .pct{width:38px;text-align:right;font-weight:700;font-size:12.5px}
+
+.section-title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.section-title .count{font-size:12px;font-weight:600;color:var(--ink3);background:var(--bg);padding:2px 9px;border-radius:20px}
+.view-all{margin-left:auto;font-size:13px;color:var(--brand);font-weight:600;cursor:pointer}
+
+.alert-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:#fff;margin-bottom:10px;transition:all .15s}
+.alert-item:hover{box-shadow:var(--shadow)}
+.alert-item.crit{border-left:4px solid var(--crit)}
+.alert-item.warn{border-left:4px solid var(--warn)}
+.alert-item.obl{border-left:4px solid var(--obl)}
+.alert-ic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.alert-body{flex:1;min-width:0}
+.alert-title{font-size:14px;font-weight:600;margin-bottom:2px}
+.alert-meta{font-size:12.5px;color:var(--ink3);display:flex;gap:12px;flex-wrap:wrap}
+.alert-meta .date{font-weight:600}
+.alert-meta .date.danger{color:var(--crit)}
+.alert-meta .date.warning{color:var(--warn)}
+
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+.tag-crit{background:var(--crit-bg);color:var(--crit)}
+.tag-warn{background:var(--warn-bg);color:var(--warn)}
+.tag-obl{background:var(--obl-bg);color:var(--obl)}
+.tag-ok{background:var(--ok-bg);color:var(--ok)}
+.tag-muted{background:var(--bg);color:var(--ink3)}
+.pill-status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 11px;border-radius:20px}
+.pill-status .dot{width:7px;height:7px;border-radius:50%}
+
+.doc-cat{margin-bottom:14px}
+.doc-cat-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:13px;cursor:pointer}
+.doc-cat-head:hover{border-color:var(--line2)}
+.doc-cat-head .chev{transition:transform .2s;color:var(--ink3);font-size:13px}
+.doc-cat.open .doc-cat-head .chev{transform:rotate(90deg)}
+.doc-cat-ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.doc-cat-title{font-weight:700;font-size:15px}
+.doc-cat-sub{font-size:12px;color:var(--ink3)}
+.doc-cat-stats{margin-left:auto;display:flex;gap:6px;align-items:center}
+.doc-cat-body{display:none;padding:6px 4px 4px}
+.doc-cat.open .doc-cat-body{display:block;animation:fade .25s ease}
+.doc-row{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:11px;transition:background .12s}
+.doc-row:hover{background:var(--bg)}
+.doc-row+.doc-row{border-top:1px solid var(--line)}
+.doc-status-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.doc-name{font-weight:600;font-size:13.5px;flex:1;min-width:0}
+.doc-name .sub{font-weight:400;font-size:12px;color:var(--ink3);margin-top:1px}
+.doc-date{font-size:12.5px;color:var(--ink2);width:130px;flex-shrink:0}
+.doc-date .lbl{font-size:11px;color:var(--ink3)}
+.doc-actions{display:flex;gap:7px}
+.icon-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;color:var(--ink2)}
+.icon-btn:hover{border-color:var(--brand);color:var(--brand)}
+
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{text-align:left;padding:11px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);border-bottom:1px solid var(--line)}
+.tbl td{padding:13px 14px;border-bottom:1px solid var(--line)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--bg)}
+.tbl .co-cell{display:flex;align-items:center;gap:10px}
+.tbl .co-av{width:32px;height:32px;border-radius:8px;background:var(--obl-bg);color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
+
+.chantier-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px;box-shadow:var(--shadow);transition:all .18s;cursor:pointer}
+.chantier-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--brand2)}
+.cc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.cc-name{font-weight:700;font-size:16px;margin-bottom:3px}
+.cc-client{font-size:12.5px;color:var(--ink3)}
+.cc-meta{display:flex;gap:18px;margin:14px 0;flex-wrap:wrap}
+.cc-meta-item .lbl{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.04em}
+.cc-meta-item .val{font-size:13.5px;font-weight:600;margin-top:2px}
+.cc-progress{margin-top:12px}
+.cc-prog-track{height:6px;background:var(--bg);border-radius:4px;overflow:hidden;margin-top:6px}
+.cc-prog-fill{height:100%;border-radius:4px}
+
+.proc-steps{display:flex;gap:0;margin:20px 0 28px}
+.proc-step{flex:1;text-align:center;position:relative}
+.proc-step::before{content:'';position:absolute;top:16px;left:-50%;width:100%;height:2px;background:var(--line2);z-index:0}
+.proc-step:first-child::before{display:none}
+.proc-step.done::before{background:var(--ok)}
+.proc-dot{width:34px;height:34px;border-radius:50%;background:#fff;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--ink3);margin:0 auto 8px;position:relative;z-index:1}
+.proc-step.done .proc-dot{background:var(--ok);border-color:var(--ok);color:#fff}
+.proc-step.active .proc-dot{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 0 0 4px rgba(31,111,235,.18)}
+.proc-step .lab{font-size:12px;font-weight:600;color:var(--ink2)}
+.proc-step.active .lab{color:var(--brand)}
+
+.mini-ring{position:relative;flex-shrink:0}
+.mini-ring svg{transform:rotate(-90deg)}
+.mini-ring .v{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;font-family:'Sora'}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(14,27,46,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:center;justify-content:center;padding:30px}
+.modal-overlay.show{display:flex;animation:fade .2s ease}
+.modal{background:#fff;border-radius:18px;max-width:560px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
+.modal-lg{max-width:760px}
+.modal-head{padding:22px 26px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;position:sticky;top:0;background:#fff;z-index:2}
+.modal-head h3{font-size:18px;font-weight:700;flex:1}
+.modal-close{width:34px;height:34px;border-radius:9px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:var(--ink2)}
+.modal-close:hover{background:var(--line)}
+.modal-body{padding:26px}
+.modal-foot{padding:18px 26px;border-top:1px solid var(--line);display:flex;gap:12px;justify-content:flex-end;position:sticky;bottom:0;background:#fff}
+
+.passport{background:linear-gradient(160deg,#fff,#f7faff);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.passport-head{background:linear-gradient(135deg,var(--navy),#15314f);color:#fff;padding:28px 32px;display:flex;align-items:center;gap:24px;position:relative;overflow:hidden}
+.passport-head::after{content:'';position:absolute;right:0;top:0;bottom:0;width:240px;background:radial-gradient(circle at 70% 50%,rgba(15,181,160,.2),transparent 70%)}
+.passport-seal{width:90px;height:90px;border-radius:50%;border:3px solid var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(15,181,160,.12);flex-shrink:0;position:relative;z-index:1}
+.passport-seal .n{font-family:'Sora';font-size:28px;font-weight:800;line-height:1}
+.passport-seal .l{font-size:9px;letter-spacing:.1em;color:rgba(255,255,255,.7);margin-top:2px}
+.passport-info{position:relative;z-index:1}
+.passport-info h2{font-size:22px;font-weight:800;margin-bottom:4px}
+.passport-info .meta{font-size:13px;color:rgba(255,255,255,.7)}
+.passport-grade{margin-left:auto;text-align:right;position:relative;z-index:1}
+.passport-grade .badge-grade{font-family:'Sora';font-size:46px;font-weight:800;line-height:1}
+.passport-grade .lab{font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.08em}
+.passport-body{padding:28px 32px}
+.passport-axes{display:flex;flex-direction:column;gap:16px}
+.passport-axis{display:flex;align-items:center;gap:16px}
+.passport-axis-ic{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.passport-axis-body{flex:1}
+.passport-axis-name{font-weight:600;font-size:14px;display:flex;justify-content:space-between}
+.passport-axis-track{height:8px;background:var(--bg);border-radius:5px;overflow:hidden;margin-top:6px}
+.passport-axis-fill{height:100%;border-radius:5px;transition:width .9s ease}
+
+.role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.role-card{border:1.5px solid var(--line);border-radius:14px;padding:18px;cursor:pointer}
+.role-card:hover{border-color:var(--brand2)}
+.role-card.sel{border-color:var(--brand);background:var(--obl-bg)}
+.role-ic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:11px}
+.role-name{font-weight:700;font-size:14.5px;margin-bottom:5px}
+.role-desc{font-size:12px;color:var(--ink2);line-height:1.45;margin-bottom:10px}
+.role-perms{display:flex;flex-wrap:wrap;gap:4px}
+.role-perm{font-size:10px;background:var(--bg);color:var(--ink2);padding:2px 7px;border-radius:20px}
+
+.risk-item{display:flex;gap:14px;padding:16px;border:1px solid var(--line);border-radius:13px;margin-bottom:12px;background:#fff}
+.risk-sev{width:6px;border-radius:6px;flex-shrink:0}
+.risk-body{flex:1}
+.risk-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.risk-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:20px}
+.risk-ref{font-size:11px;color:var(--ink3);font-family:'Sora'}
+.risk-desc{font-size:13.5px;color:var(--ink);margin-bottom:8px;font-weight:500}
+.risk-detail{font-size:12.5px;color:var(--ink2);background:var(--bg);padding:9px 12px;border-radius:9px;margin-bottom:8px}
+.risk-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.notif-panel{position:fixed;top:70px;right:24px;width:380px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);z-index:150;display:none;overflow:hidden}
+.notif-panel.show{display:block;animation:fade .2s ease}
+.notif-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.notif-head h4{font-size:15px;font-weight:700}
+.notif-toggle-row{padding:13px 20px;border-bottom:1px solid var(--line);background:var(--bg);font-size:12.5px;color:var(--ink2);display:flex;align-items:center;justify-content:space-between}
+.switch{position:relative;width:38px;height:21px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.switch .track{position:absolute;inset:0;background:var(--line2);border-radius:20px;transition:.2s;cursor:pointer}
+.switch .track::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:2.5px;background:#fff;border-radius:50%;transition:.2s}
+.switch input:checked+.track{background:var(--ok)}
+.switch input:checked+.track::before{transform:translateX(16px)}
+.notif-list{max-height:340px;overflow-y:auto}
+.notif-item{padding:13px 20px;border-bottom:1px solid var(--line);display:flex;gap:12px}
+.notif-item:hover{background:var(--bg)}
+.notif-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.notif-text{font-size:13px}
+.notif-time{font-size:11px;color:var(--ink3);margin-top:3px}
+
+.block-banner{border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.block-banner.danger{background:var(--crit-bg);border:1px solid #f2c4c4}
+.block-banner.warn{background:var(--warn-bg);border:1px solid #f0d6a0}
+.block-banner.ok{background:var(--ok-bg);border:1px solid #b8e6d0}
+.block-banner-ic{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.block-banner-body{flex:1}
+.block-banner-title{font-weight:700;font-size:15px;margin-bottom:2px}
+.block-banner-text{font-size:13px;color:var(--ink2)}
+
+.share-link-box{background:var(--bg);border:1px dashed var(--line2);border-radius:11px;padding:14px 16px;display:flex;align-items:center;gap:12px;font-size:13px}
+.share-link-box .url{flex:1;font-family:'Sora';color:var(--brand);font-size:12px;word-break:break-all}
+
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--navy);color:#fff;padding:14px 22px;border-radius:12px;font-size:14px;font-weight:500;box-shadow:var(--shadow-lg);z-index:300;display:flex;align-items:center;gap:11px;opacity:0;transition:all .3s}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+.empty{text-align:center;padding:50px 20px;color:var(--ink3)}
+.empty-ic{font-size:46px;margin-bottom:14px;opacity:.5}
+
+.spacer-sm{height:14px}.spacer{height:24px}.spacer-lg{height:40px}
+
+@media(max-width:1100px){.hero-inner{grid-template-columns:1fr}.hero-visual{display:none}.gain-grid,.how-steps{grid-template-columns:1fr 1fr}.auth-wrap{grid-template-columns:1fr}.auth-side{display:none}}
+@media(max-width:820px){.app.active{grid-template-columns:1fr}.sidebar{display:none}.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- 1. LANDING PAGE                                          -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="screen active" id="landing">
+
+  <nav class="lp-nav">
+    <div class="logo"><span class="logo-mark">S</span>Sylanty<span class="dot">.</span></div>
+    <div class="lp-nav-links">
+      <a href="#concept">Concept</a>
+      <a href="#gains">Bénéfices</a>
+      <a href="#how">Fonctionnement</a>
+      <a href="#pricing">Tarifs</a>
+    </div>
+    <div class="lp-nav-cta">
+      <button class="btn btn-sm btn-ghost" data-action="login">Connexion</button>
+      <button class="btn btn-sm btn-white" data-action="signup">Essai gratuit</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">🇪🇺 Nouvelle loi EU : le DOE devient numérique</div>
+        <h1>Zéro chantier bloqué.<br><span class="hl">DOE prêt en 1 clic.</span></h1>
+        <p class="sub">Sylanty suit vos documents, scanne les passeports produits de vos chantiers, et sort un DOE complet pour le maître d'ouvrage. Conforme à la nouvelle réglementation européenne.</p>
+        <div class="hero-cta">
+          <button class="btn btn-lg btn-primary" data-action="signup">Essai gratuit →</button>
+          <button class="btn btn-lg btn-ghost" data-action="login">Voir la démo</button>
+        </div>
+        <div class="hero-trust">
+          <span>✓ Sans CB</span>
+          <span>✓ Prêt en 5 min</span>
+          <span>✓ Conforme loi EU</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hv-head">
+          <div>
+            <div class="hv-co">Élec Pro Lyon SAS</div>
+            <div class="hv-naf">NAF 43.21A — Électricien</div>
+          </div>
+          <span class="tag tag-ok">Pass conformité</span>
+        </div>
+        <div class="hv-ring-wrap">
+          <div class="ring" style="width:108px;height:108px">
+            <svg width="108" height="108"><circle cx="54" cy="54" r="48" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="8"/><circle cx="54" cy="54" r="48" fill="none" stroke="#0fb5a0" stroke-width="8" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="60.3"/></svg>
+            <div class="ring-val"><div class="n" style="font-size:28px">80%</div><div class="l">CONFORMITÉ</div></div>
+          </div>
+          <div class="hv-legend">
+            <div class="hv-leg-item"><div class="ic" style="background:rgba(15,181,160,.2);color:#0fb5a0">✓</div>22 documents valides</div>
+            <div class="hv-leg-item"><div class="ic" style="background:rgba(217,131,22,.2);color:#e0a829">⏰</div>3 expirent &lt; 60j</div>
+            <div class="hv-leg-item"><div class="ic" style="background:rgba(214,59,59,.2);color:#f08080">!</div>1 manquant</div>
+          </div>
+        </div>
+        <div class="hv-alerts">
+          <div class="hv-alert" style="border-left-color:#d63b3b">🚨 URSSAF expire dans 18 jours</div>
+          <div class="hv-alert" style="border-left-color:#0fb5a0">📘 DOE Hôpital St-Joseph : 64% de passeports collectés</div>
+          <div class="hv-alert" style="border-left-color:#e0a829">📦 3 passeports produits (DPP) manquants</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Concept -->
+  <section class="section" id="concept">
+    <div class="section-tag">Le concept</div>
+    <h2 class="section-h">La paperasse en moins.<br>Le chantier en plus.</h2>
+    <p class="section-sub">Une nouvelle loi EU oblige à fournir un DOE numérique avec les passeports produits. Sylanty s'en occupe pour vous.</p>
+    <div class="gain-grid" id="gains">
+      <div class="gain-card" style="border-color:var(--teal)">
+        <div class="gain-ic" style="background:#e1f5ee;color:#0fb5a0">📘</div>
+        <h3>DOE prêt à livrer</h3>
+        <p>Scannez vos produits posés. Sylanty monte le dossier complet pour le maître d'ouvrage.</p>
+      </div>
+      <div class="gain-card" style="border-color:var(--brand2)">
+        <div class="gain-ic" style="background:#e9f1fe;color:#1f6feb">🇪🇺</div>
+        <h3>En règle avec l'Europe</h3>
+        <p>La nouvelle loi arrive en 2026. Vous êtes prêt avant vos concurrents.</p>
+      </div>
+      <div class="gain-card">
+        <div class="gain-ic" style="background:#fcebeb;color:#d63b3b">🚨</div>
+        <h3>Jamais bloqué</h3>
+        <p>URSSAF, décennale, CACES : on vous prévient 60 jours avant que ça expire.</p>
+      </div>
+      <div class="gain-card">
+        <div class="gain-ic" style="background:#e6f6ef;color:#1aa06d">📊</div>
+        <h3>Votre score en direct</h3>
+        <p>Un chiffre, adapté à votre métier. Vous savez où vous en êtes, tout le temps.</p>
+      </div>
+      <div class="gain-card">
+        <div class="gain-ic" style="background:#eeedfe;color:#7b74d9">🤝</div>
+        <h3>Sous-traitants carrés</h3>
+        <p>Un lien, ils déposent leurs papiers, vous validez. Fini les relances.</p>
+      </div>
+      <div class="gain-card">
+        <div class="gain-ic" style="background:#fdf2e2;color:#e0a829">🔍</div>
+        <h3>Vos contrats décodés</h3>
+        <p>L'IA lit votre CCTP et repère les pénalités planquées. Plus de mauvaise surprise.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how" id="how">
+    <div class="section">
+      <div class="section-tag">Comment ça marche</div>
+      <h2 class="section-h">4 étapes. C'est tout.</h2>
+      <p class="section-sub">Pas besoin d'être juriste. C'est fait pour les chefs d'entreprise du BTP.</p>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-num">01</div>
+          <h4>Votre SIRET</h4>
+          <p>On récupère votre Kbis, NAF et données légales automatiquement.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">02</div>
+          <h4>Vos papiers</h4>
+          <p>Glissez-déposez. On suit les dates et on calcule votre score.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">03</div>
+          <h4>Vos produits</h4>
+          <p>Scannez le QR sur le chantier. Le passeport rentre dans le DOE.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">04</div>
+          <h4>Vous livrez</h4>
+          <p>Un lien sécurisé, le DOE part au maître d'ouvrage. Terminé.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section" id="pricing">
+    <div class="section-tag">Tarification simple</div>
+    <h2 class="section-h">Un seul plan, tout inclus.</h2>
+    <p class="section-sub">Tout Sylanty. 29 € par mois. Point.</p>
+    <div class="pricing-wrap">
+      <div class="price-card">
+        <div class="price-ribbon">POPULAIRE</div>
+        <div class="price-plan">Sylanty Pro</div>
+        <div class="price-amount"><span class="cur">€</span><span class="num">29</span><span class="per">/ mois HT</span></div>
+        <div class="price-note">Facturé mensuellement — sans engagement</div>
+        <ul class="price-feats">
+          <li><span class="chk">✓</span> Documents entreprise illimités</li>
+          <li><span class="chk">✓</span> Chantiers illimités</li>
+          <li><span class="chk">✓</span> Salariés illimités</li>
+          <li><span class="chk">✓</span> Sous-traitants illimités</li>
+          <li><span class="chk">✓</span> Analyse IA des CCTP/CCAP</li>
+          <li><span class="chk">✓</span> Partages externes sécurisés (CSPS, MOE, clients)</li>
+          <li><span class="chk">✓</span> Score de conformité par NAF</li>
+          <li><span class="chk">✓</span> Alertes email + cloche personnalisable</li>
+          <li><span class="chk">✓</span> Synchro Google Calendar</li>
+          <li><span class="chk">✓</span> Hébergement France · RGPD</li>
+        </ul>
+        <button class="btn btn-lg btn-primary" data-action="signup">Démarrer l'essai gratuit 14 jours →</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="lp-footer">
+    © 2026 Sylanty — La conformité documentaire BTP simplifiée. Hébergement France · RGPD.
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- 2. SIGNUP / ONBOARDING                                   -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="screen" id="signup">
+  <div class="auth-wrap">
+    <aside class="auth-side">
+      <div class="logo"><span class="logo-mark">S</span>Sylanty<span class="dot">.</span></div>
+      <div class="auth-side-content">
+        <h2>Bienvenue dans la conformité<br>sans effort.</h2>
+        <p>Sylanty s'adapte à votre métier dès la première minute. Renseignez votre SIRET, on s'occupe du reste.</p>
+        <div class="auth-quote">"En 3 mois on a évité 2 chantiers bloqués et récupéré 18 000€ de RG oubliée. Sylanty paie son abonnement en 1 semaine." — Sébastien M., gérant Élec Pro Lyon</div>
+      </div>
+    </aside>
+
+    <main class="auth-main">
+      <div class="auth-card">
+        <div class="auth-steps">
+          <div class="auth-step-dot active"></div>
+          <div class="auth-step-dot"></div>
+          <div class="auth-step-dot"></div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="signup-step">
+          <h1>Créez votre compte</h1>
+          <p class="lead">14 jours d'essai gratuit. Sans carte bancaire.</p>
+          <div class="field"><label>Nom complet</label><input id="su-name" type="text" placeholder="Marc Dupont" value="Marc Dupont"></div>
+          <div class="field"><label>Email professionnel</label><input id="su-email" type="email" placeholder="marc@votre-entreprise.fr" value="marc@elecpro-lyon.fr"></div>
+          <div class="field"><label>Mot de passe</label><input id="su-password" type="password" placeholder="••••••••" value="demo1234"><div class="hint">Au moins 8 caractères.</div></div>
+          <button class="btn btn-lg btn-primary" data-action="signup-next" style="width:100%;margin-top:10px">Continuer →</button>
+          <div style="text-align:center;font-size:13px;margin-top:18px;color:var(--ink3)">Déjà un compte ? <a style="color:var(--brand);font-weight:600" data-action="login">Connectez-vous</a></div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="signup-step" style="display:none">
+          <h1>Votre entreprise</h1>
+          <p class="lead">Renseignez votre SIRET — on récupère le reste.</p>
+          <div class="field"><label>SIRET</label><input id="su-siret" type="text" placeholder="894 562 731 00012" value="894 562 731 00012"><div class="hint">📡 Données récupérées via l'API officielle INPI / INSEE</div></div>
+          <div class="field"><label>Raison sociale</label><input id="su-company" type="text" value="Élec Pro Lyon SAS"></div>
+          <div class="field"><label>Code NAF / APE</label>
+            <select id="signup-naf">
+              <option value="43.21A">43.21A — Travaux d'installation électrique</option>
+              <option value="43.99C">43.99C — Travaux de maçonnerie générale</option>
+              <option value="43.22A">43.22A — Travaux d'installation d'eau et de gaz</option>
+              <option value="41.20A">41.20A — Construction de maisons individuelles</option>
+            </select>
+          </div>
+          <div class="naf-preview" id="naf-preview"><strong>43.21A</strong> — Électricien<br><span style="font-size:12px">Sylanty va personnaliser le référentiel documentaire et le scoring selon votre activité.</span></div>
+          <div class="field"><label>Adresse</label><input type="text" value="12 rue de l'Industrie, 69100 Villeurbanne"></div>
+          <div class="field-row">
+            <div class="field"><label>Nb salariés</label><input type="number" value="14"></div>
+            <div class="field"><label>CA annuel</label><input type="text" value="2.4M €"></div>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:10px">
+            <button class="btn btn-md btn-outline" data-action="signup-back">← Retour</button>
+            <button class="btn btn-md btn-primary" data-action="signup-next" style="flex:1">Continuer →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="signup-step" style="display:none">
+          <h1>Presque terminé !</h1>
+          <p class="lead">Choisissez votre rôle principal pour personnaliser votre tableau de bord.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+            <label style="display:flex;align-items:center;gap:12px;padding:14px;border:1.5px solid var(--brand);background:var(--obl-bg);border-radius:11px;cursor:pointer"><input type="radio" name="role" checked><div><div style="font-weight:600">🏢 Admin entreprise / Gérant</div><div style="font-size:12px;color:var(--ink2)">Vue complète, gestion documents et chantiers</div></div></label>
+            <label style="display:flex;align-items:center;gap:12px;padding:14px;border:1.5px solid var(--line);border-radius:11px;cursor:pointer"><input type="radio" name="role"><div><div style="font-weight:600">🦺 Responsable QSE</div><div style="font-size:12px;color:var(--ink2)">Conformité, sécurité chantier, risques</div></div></label>
+            <label style="display:flex;align-items:center;gap:12px;padding:14px;border:1.5px solid var(--line);border-radius:11px;cursor:pointer"><input type="radio" name="role"><div><div style="font-weight:600">📋 Chargé d'affaires</div><div style="font-size:12px;color:var(--ink2)">Appels d'offres, sous-traitance, clients</div></div></label>
+          </div>
+          <label style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink2);margin-bottom:20px"><input type="checkbox" checked><span>J'accepte les <a style="color:var(--brand)">CGU</a> et la <a style="color:var(--brand)">politique de confidentialité</a></span></label>
+          <div style="display:flex;gap:12px">
+            <button class="btn btn-md btn-outline" data-action="signup-back">← Retour</button>
+            <button class="btn btn-md btn-primary" data-action="signup-next" style="flex:1">🚀 Accéder à mon tableau de bord</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- 3. APP                                                   -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sb-logo"><div class="logo"><span class="logo-mark">S</span>Sylanty<span class="dot">.</span></div></div>
+
+    <div class="sb-co">
+      <div class="sb-co-av" id="sb-co-av">SY</div>
+      <div class="sb-co-info">
+        <div class="sb-co-name" id="sb-co-name">Sylanty SAS</div>
+        <div class="sb-co-naf" id="sb-co-naf">NAF 43.21A</div>
+      </div>
+    </div>
+
+    <nav class="sb-nav">
+      <button class="sb-link active" data-nav="dashboard">
+        <span class="ic">📊</span>Tableau de bord
+      </button>
+
+      <div class="sb-group-title">Conformité entreprise</div>
+      <button class="sb-link" data-nav="conf-docs" data-nav-parent="conf">
+        <span class="ic">📁</span>Documents société<span class="badge">3</span>
+      </button>
+      <button class="sb-link" data-nav="conf-score" data-nav-parent="conf">
+        <span class="ic">🏅</span>Score & passeport
+      </button>
+      <button class="sb-link" data-nav="conf-salaries" data-nav-parent="conf">
+        <span class="ic">👥</span>Conformité salariés
+      </button>
+
+      <div class="sb-group-title">Gestion chantier</div>
+      <button class="sb-link" data-nav="chantier-list" data-nav-parent="chantier">
+        <span class="ic">🏗️</span>Chantiers
+      </button>
+      <button class="sb-link" data-nav="chantier-st" data-nav-parent="chantier">
+        <span class="ic">🤝</span>Sous-traitance<span class="badge">1</span>
+      </button>
+      <button class="sb-link" data-nav="chantier-risques" data-nav-parent="chantier">
+        <span class="ic">⚠️</span>Analyse risques
+      </button>
+      <button class="sb-link" data-nav="chantier-doe" data-nav-parent="chantier">
+        <span class="ic">📘</span>DOE &amp; Passeports produits<span class="badge" style="background:var(--teal)">CPR</span>
+      </button>
+
+      <div class="sb-group-title">Collaboration externe</div>
+      <button class="sb-link" data-nav="collab-partage" data-nav-parent="collab">
+        <span class="ic">🔗</span>Partages sécurisés
+      </button>
+      <button class="sb-link" data-nav="collab-valid" data-nav-parent="collab">
+        <span class="ic">✓</span>Validations partenaires
+      </button>
+      <button class="sb-link" data-nav="collab-roles" data-nav-parent="collab">
+        <span class="ic">👤</span>Rôles & permissions
+      </button>
+    </nav>
+
+    <div class="sb-footer">
+      <div class="sb-user" onclick="openProfileModal()">
+        <div class="sb-user-av">MD</div>
+        <div class="sb-user-info">
+          <div class="sb-user-name" id="sb-user-name">Marc Dupont</div>
+          <div class="sb-user-role" id="sb-user-role">Admin entreprise</div>
+        </div>
+        <span id="logout-btn" style="color:rgba(255,255,255,.4);font-size:14px;padding:4px 8px;border-radius:6px;cursor:pointer" onclick="event.stopPropagation();" title="Déconnexion">⎋</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main area -->
+  <section class="main-area">
+    <header class="topbar">
+      <div>
+        <div class="crumb">Vue d'ensemble</div>
+        <h1>Tableau de bord</h1>
+      </div>
+      <div class="topbar-actions">
+        <button class="bell" id="bell">🔔<span class="dot"></span></button>
+        <button class="btn btn-sm btn-primary" onclick="openAddDocModal()">+ Ajouter un document</button>
+      </div>
+    </header>
+
+    <div class="page">
+
+      <!-- DASHBOARD -->
+      <div class="page-section active" id="page-dashboard">
+        <!-- Score hero -->
+        <div class="score-hero">
+          <div class="score-ring-lg" id="dash-score-ring" style="width:140px;height:140px"></div>
+          <div class="score-ring-val" id="dash-score-val" style="position:relative;width:140px;height:140px;margin:-140px 0 0;left:0"></div>
+          <div class="score-info">
+            <h2>Pass de conformité</h2>
+            <div class="desc">Score calculé selon votre code NAF (43.21A — Électricien). Pondération adaptée à votre métier.</div>
+            <div class="score-bars" id="dash-score-bars"></div>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+
+        <!-- KPIs -->
+        <div class="grid-4" id="dash-kpis"></div>
+
+        <div class="spacer"></div>
+
+        <!-- Alerts + side -->
+        <div class="grid-2" style="grid-template-columns: 2fr 1fr">
+          <div class="card card-pad">
+            <div class="section-title">🚨 Actions à traiter <span class="count" id="alerts-count">5</span><a class="view-all" onclick="navTo('conf-docs')">Tout voir →</a></div>
+            <div id="dash-alerts"></div>
+          </div>
+          <div class="card card-pad">
+            <div class="section-title">🏗️ Chantiers en cours <span class="count">2</span></div>
+            <div id="dash-chantiers"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONF DOCS -->
+      <div class="page-section" id="page-conf-docs">
+        <div class="block-banner warn">
+          <div class="block-banner-ic" style="background:#fff;color:var(--warn)">📁</div>
+          <div class="block-banner-body">
+            <div class="block-banner-title">Centralisez ici tous vos documents légaux d'entreprise</div>
+            <div class="block-banner-text">Les documents sont catégorisés selon les exigences BTP. Survolez chaque ligne pour les actions (déposer, voir, télécharger).</div>
+          </div>
+        </div>
+        <div id="docs-container"></div>
+      </div>
+
+      <!-- SCORE PASSPORT -->
+      <div class="page-section" id="page-conf-score">
+        <div class="passport">
+          <div class="passport-head">
+            <div class="passport-seal" id="passport-seal"></div>
+            <div class="passport-info">
+              <h2 id="passport-co-name">Sylanty SAS</h2>
+              <div class="meta"><span id="passport-naf">NAF 43.21A</span> · SIRET 894 562 731 00012</div>
+              <div class="meta" style="margin-top:5px">Émis le <span id="passport-date"></span></div>
+            </div>
+            <div class="passport-grade">
+              <div class="badge-grade" id="passport-grade-val">B</div>
+              <div class="lab">GRADE</div>
+            </div>
+          </div>
+          <div class="passport-body">
+            <h4 style="margin-bottom:18px;font-size:15px">Conformité par axe</h4>
+            <div class="passport-axes" id="passport-axes"></div>
+            <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--line);display:flex;gap:12px">
+              <button class="btn btn-md btn-outline" onclick="toast('Passeport PDF en cours de génération','📄')">⤓ Télécharger le passeport PDF</button>
+              <button class="btn btn-md btn-primary" onclick="openShareModal()">🔗 Partager à un client</button>
+            </div>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="card card-pad">
+          <h4 style="margin-bottom:14px">💡 Comment est calculé votre score ?</h4>
+          <div style="color:var(--ink2);font-size:13.5px;line-height:1.7">
+            Le score Sylanty combine 3 facteurs :
+            <ul style="margin-top:10px;padding-left:20px">
+              <li><strong>Criticité</strong> du document — Critique (×3), Obligatoire (×2), Recommandé (×1)</li>
+              <li><strong>Coefficient NAF</strong> — adapté à votre métier (ex: Qualifelec ×2 pour électricien, Décennale gros œuvre ×2.5 pour maçon)</li>
+              <li><strong>État du document</strong> — Valide (100%), Expire dans 30-60j (70%), Expire &lt;30j (30%), Manquant (0%)</li>
+            </ul>
+            <p style="margin-top:12px">Grade A+ ≥ 90%, A ≥ 80%, B ≥ 70%, C ≥ 60%, D &lt; 60%.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONF SALARIES -->
+      <div class="page-section" id="page-conf-salaries">
+        <div class="card">
+          <table class="tbl">
+            <thead>
+              <tr><th>Salarié</th><th>Score</th><th>Documents</th><th>Alertes</th><th></th></tr>
+            </thead>
+            <tbody id="emp-tbody"></tbody>
+          </table>
+        </div>
+        <div class="spacer"></div>
+        <div style="display:flex;justify-content:flex-end"><button class="btn btn-md btn-primary" onclick="openNewEmployeeModal()">+ Ajouter un salarié</button></div>
+      </div>
+
+      <!-- CHANTIERS LIST -->
+      <div class="page-section" id="page-chantier-list">
+        <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+          <button class="btn btn-sm btn-outline filter-chantier active" data-filter="all" onclick="filterChantiers('all',this)">Tous (4)</button>
+          <button class="btn btn-sm btn-outline filter-chantier" data-filter="appel_offres" style="background:var(--warn-bg);color:var(--warn);border-color:#f0d6a0" onclick="filterChantiers('appel_offres',this)">📑 Appels d'offres (1)</button>
+          <button class="btn btn-sm btn-outline filter-chantier" data-filter="en_cours" style="background:var(--obl-bg);color:var(--obl);border-color:#c4dcfb" onclick="filterChantiers('en_cours',this)">🏗️ En cours (2)</button>
+          <button class="btn btn-sm btn-outline filter-chantier" data-filter="termine" style="background:var(--ok-bg);color:var(--ok);border-color:#b8e6d0" onclick="filterChantiers('termine',this)">✓ Terminés (1)</button>
+          <button class="btn btn-md btn-primary" style="margin-left:auto" onclick="openNewChantierModal()">+ Nouveau chantier</button>
+        </div>
+        <div class="grid-2" id="chantier-grid"></div>
+      </div>
+
+      <!-- SOUS-TRAITANCE -->
+      <div class="page-section" id="page-chantier-st">
+        <div class="grid-2" style="grid-template-columns:1fr 1fr;margin-bottom:20px">
+          <div class="card card-pad" style="border-left:4px solid var(--brand)">
+            <h4 style="margin-bottom:6px">🤝 Je déclare mon sous-traitant</h4>
+            <p style="font-size:13px;color:var(--ink2);margin-bottom:12px">Envoyez un lien sécurisé, recevez les documents, validez le dossier.</p>
+            <button class="btn btn-md btn-primary" onclick="openNewSTModal()">+ Nouveau sous-traitant</button>
+          </div>
+          <div class="card card-pad" style="border-left:4px solid var(--teal)">
+            <h4 style="margin-bottom:6px">📤 Je suis sous-traitant</h4>
+            <p style="font-size:13px;color:var(--ink2);margin-bottom:12px">Constituez votre dossier prêt à envoyer à vos donneurs d'ordre.</p>
+            <button class="btn btn-md btn-outline" onclick="openShareModal()">📦 Préparer mon dossier ST</button>
+          </div>
+        </div>
+        <div class="card">
+          <div style="padding:18px 22px;border-bottom:1px solid var(--line);font-weight:700">Mes sous-traitants déclarés</div>
+          <table class="tbl">
+            <thead><tr><th>Sous-traitant</th><th>Statut</th><th>Documents</th><th>Validé le</th><th>Actions</th></tr></thead>
+            <tbody id="st-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ANALYSE RISQUES -->
+      <div class="page-section" id="page-chantier-risques">
+        <div class="block-banner ok" style="background:linear-gradient(135deg,#e9f1fe,#e6f6ef);border-color:#c4dcfb">
+          <div class="block-banner-ic" style="background:#fff;color:var(--brand)">🤖</div>
+          <div class="block-banner-body">
+            <div class="block-banner-title">Analyse IA du CCTP — Hôpital Saint-Joseph</div>
+            <div class="block-banner-text">Document de 142 pages analysé en 28 secondes. <strong>5 risques contractuels identifiés</strong> dont 2 critiques.</div>
+          </div>
+          <button class="btn btn-md btn-outline" onclick="openNewRiskModal()">+ Analyser un autre document</button>
+        </div>
+        <div id="risk-list"></div>
+      </div>
+
+      <!-- DOE & PASSEPORTS PRODUITS -->
+      <div class="page-section" id="page-chantier-doe">
+        <div class="block-banner ok" style="background:linear-gradient(135deg,#e6f6ef,#e9f1fe);border-color:#b8e6d0;margin-bottom:20px">
+          <div class="block-banner-ic" style="background:#fff;color:var(--teal)">📘</div>
+          <div class="block-banner-body">
+            <div class="block-banner-title">Dossier des Ouvrages Exécutés — version numérique</div>
+            <div class="block-banner-text">Collectez les <strong>passeports produits (DPP)</strong> et fiches techniques de vos produits posés. Préparez un DOE conforme <strong>CPR (EU 2024/3110)</strong> à transmettre au maître d'ouvrage.</div>
+          </div>
+          <button class="btn btn-md btn-primary" onclick="openScanModal()">📷 Scanner un produit</button>
+        </div>
+        <div class="grid-4" id="doe-kpis" style="margin-bottom:22px"></div>
+        <div id="doe-chantiers"></div>
+      </div>
+
+      <!-- PARTAGE -->
+      <div class="page-section" id="page-collab-partage">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <div>
+            <h3 style="font-size:18px;font-weight:700">Liens de partage actifs</h3>
+            <div style="font-size:13px;color:var(--ink3);margin-top:3px">Accès limités générés pour CSPS, MOE, clients</div>
+          </div>
+          <button class="btn btn-md btn-primary" onclick="openShareModal()">🔗 Nouveau partage</button>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead><tr><th>Destinataire</th><th>Chantier</th><th>Documents</th><th>Statut</th><th>Expiration</th><th></th></tr></thead>
+            <tbody id="share-list"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- VALIDATIONS -->
+      <div class="page-section" id="page-collab-valid">
+        <div class="card card-pad">
+          <div class="section-title">🔄 Workflow de validation</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px">
+            <div style="text-align:center;padding:18px;background:var(--obl-bg);border-radius:12px"><div style="font-size:28px;margin-bottom:6px">📤</div><div style="font-weight:700;font-size:18px">12</div><div style="font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.04em">Envoyés</div></div>
+            <div style="text-align:center;padding:18px;background:var(--warn-bg);border-radius:12px"><div style="font-size:28px;margin-bottom:6px">👁</div><div style="font-weight:700;font-size:18px">9</div><div style="font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.04em">Consultés</div></div>
+            <div style="text-align:center;padding:18px;background:var(--ok-bg);border-radius:12px"><div style="font-size:28px;margin-bottom:6px">✓</div><div style="font-weight:700;font-size:18px;color:var(--ok)">7</div><div style="font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.04em">Validés</div></div>
+            <div style="text-align:center;padding:18px;background:var(--crit-bg);border-radius:12px"><div style="font-size:28px;margin-bottom:6px">✕</div><div style="font-weight:700;font-size:18px;color:var(--crit)">1</div><div style="font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.04em">Refusés</div></div>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="card card-pad">
+          <div class="section-title">📜 Historique des validations <span class="count">9</span></div>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer" onclick="openShareHistoryModal('Cabinet Veritas (CSPS)')"><div class="alert-ic" style="background:var(--ok-bg);color:var(--ok)">✓</div><div style="flex:1"><div style="font-weight:600;font-size:13.5px">Validation Décennale + RC Pro</div><div style="font-size:12.5px;color:var(--ink3)">Par Cabinet Veritas (CSPS) • Hôpital Saint-Joseph</div></div><div style="font-size:12px;color:var(--ink3)">Hier, 14:23</div></div>
+            <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer" onclick="openShareHistoryModal('AP-HP Lyon (MOE)')"><div class="alert-ic" style="background:var(--obl-bg);color:var(--obl)">👁</div><div style="flex:1"><div style="font-weight:600;font-size:13.5px">Documents consultés (5/5)</div><div style="font-size:12.5px;color:var(--ink3)">Par AP-HP Lyon (MOE) • Hôpital Saint-Joseph</div></div><div style="font-size:12px;color:var(--ink3)">Il y a 2 jours</div></div>
+            <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer" onclick="openShareHistoryModal('Bureau Apave')"><div class="alert-ic" style="background:var(--crit-bg);color:var(--crit)">✕</div><div style="flex:1"><div style="font-weight:600;font-size:13.5px">Refus — DUERP manquant</div><div style="font-size:12.5px;color:var(--ink3)">Par Bureau Apave • Lycée Carnot • <em>"DUERP à jour requis avant ouverture chantier"</em></div></div><div style="font-size:12px;color:var(--ink3)">Il y a 3 jours</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROLES -->
+      <div class="page-section" id="page-collab-roles">
+        <p style="color:var(--ink2);margin-bottom:18px;font-size:14px">Définissez précisément qui voit quoi dans Sylanty. Chaque rôle a des permissions adaptées au métier de l'utilisateur.</p>
+        <div class="role-grid" id="roles-grid"></div>
+        <div class="spacer"></div>
+        <div class="card card-pad">
+          <div style="display:flex;justify-content:space-between;align-items:center"><h4>👥 Utilisateurs actifs</h4><button class="btn btn-sm btn-primary" onclick="openInviteUserModal()">+ Inviter</button></div>
+          <table class="tbl" style="margin-top:14px">
+            <thead><tr><th>Utilisateur</th><th>Rôle</th><th>Dernière connexion</th><th>Statut</th><th></th></tr></thead>
+            <tbody>
+              <tr style="cursor:pointer" onclick="toast('Édition profil — démo','⚙️')"><td><div class="co-cell"><div class="co-av">MD</div><div><div style="font-weight:600">Marc Dupont</div><div style="font-size:12px;color:var(--ink3)">marc@elecpro-lyon.fr</div></div></div></td><td><span class="tag tag-obl">🏢 Admin entreprise</span></td><td style="font-size:12.5px">Maintenant</td><td><span class="tag tag-ok">Actif</span></td><td><button class="icon-btn" onclick="event.stopPropagation();toast('Menu options','⚙️')">⋮</button></td></tr>
+              <tr style="cursor:pointer" onclick="toast('Édition profil — démo','⚙️')"><td><div class="co-cell"><div class="co-av" style="background:#fcebeb;color:#d63b3b">SL</div><div><div style="font-weight:600">Sophie Laval</div><div style="font-size:12px;color:var(--ink3)">sophie@elecpro-lyon.fr</div></div></div></td><td><span class="tag" style="background:#fcebeb;color:#d63b3b">🦺 Responsable QSE</span></td><td style="font-size:12.5px">Il y a 2h</td><td><span class="tag tag-ok">Actif</span></td><td><button class="icon-btn" onclick="event.stopPropagation();toast('Menu options','⚙️')">⋮</button></td></tr>
+              <tr style="cursor:pointer" onclick="toast('Édition profil — démo','⚙️')"><td><div class="co-cell"><div class="co-av" style="background:#e1f5ee;color:#0fb5a0">JR</div><div><div style="font-weight:600">Julien Rambert</div><div style="font-size:12px;color:var(--ink3)">julien@elecpro-lyon.fr</div></div></div></td><td><span class="tag" style="background:#e1f5ee;color:#0fb5a0">📋 Chargé d'affaires</span></td><td style="font-size:12.5px">Hier</td><td><span class="tag tag-ok">Actif</span></td><td><button class="icon-btn" onclick="event.stopPropagation();toast('Menu options','⚙️')">⋮</button></td></tr>
+              <tr style="cursor:pointer" onclick="toast('Édition profil — démo','⚙️')"><td><div class="co-cell"><div class="co-av" style="background:#fbeaf0;color:#d4537e">CV</div><div><div style="font-weight:600">Cabinet Veritas</div><div style="font-size:12px;color:var(--ink3)">csps@cabinet-veritas.fr</div></div></div></td><td><span class="tag" style="background:#fbeaf0;color:#d4537e">🤝 Partenaire externe</span></td><td style="font-size:12.5px">Il y a 4h</td><td><span class="tag tag-ok">Actif</span></td><td><button class="icon-btn" onclick="event.stopPropagation();toast('Menu options','⚙️')">⋮</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- NOTIF PANEL                                              -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="notif-panel" id="notif-panel">
+  <div class="notif-head">
+    <h4>Notifications</h4>
+    <button style="font-size:12px;color:var(--brand);font-weight:600" onclick="toast('Toutes les notifications marquées comme lues','✓');document.getElementById('notif-panel').classList.remove('show')">Tout marquer comme lu</button>
+  </div>
+  <div class="notif-toggle-row">
+    <span>🔕 <strong>Mode silencieux</strong> — Choisissez quoi recevoir</span>
+  </div>
+  <div style="padding:12px 20px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px">
+    <label style="display:flex;justify-content:space-between;align-items:center;font-size:13px"><span>Alertes critiques (docs manquants)</span><span class="switch"><input type="checkbox" checked><span class="track"></span></span></label>
+    <label style="display:flex;justify-content:space-between;align-items:center;font-size:13px"><span>Expirations &lt; 60 jours</span><span class="switch"><input type="checkbox" checked><span class="track"></span></span></label>
+    <label style="display:flex;justify-content:space-between;align-items:center;font-size:13px"><span>Réunions chantier (Google Cal.)</span><span class="switch"><input type="checkbox"><span class="track"></span></span></label>
+    <label style="display:flex;justify-content:space-between;align-items:center;font-size:13px"><span>Validations partenaires</span><span class="switch"><input type="checkbox" checked><span class="track"></span></span></label>
+  </div>
+  <div class="notif-list" id="notif-list"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════════════════════════════
+// SYLANTY — Application complète
+// ════════════════════════════════════════════════════════════════════
+
+// ── State ──────────────────────────────────────────────────────────
+let STATE = {
+  company: {
+    name: 'Sylanty SAS',
+    siret: '894 562 731 00012',
+    naf: '43.21A',
+    nafLabel: 'Travaux d\'installation électrique dans tous locaux',
+    director: 'Marc Dupont',
+    address: '12 rue de l\'Industrie, 69100 Villeurbanne',
+    employees: 14,
+    revenue: '2.4M€'
+  },
+  user: { name: 'Marc Dupont', initials: 'MD', role: 'Admin entreprise' },
+  notifsEnabled: { email_critical: true, email_expiration: true, email_chantier: false, email_validation: true }
+};
+
+// ── Scoring NAF — coefficients pondérés ────────────────────────────
+// Chaque code NAF a des documents pondérés différemment
+const NAF_WEIGHTS = {
+  '43.21A': { // Électricien
+    label: 'Électricien',
+    coef: { 'qualifelec': 2.0, 'habil_elec': 2.0, 'caces': 1.0, 'decennale': 2.0 }
+  },
+  '43.99C': { // Maçonnerie / gros œuvre
+    label: 'Maçonnerie / gros œuvre',
+    coef: { 'decennale': 2.5, 'caces': 1.8, 'qualibat': 1.8, 'qualifelec': 0.5 }
+  },
+  '43.22A': { // Plomberie / chauffage
+    label: 'Plomberie / chauffage',
+    coef: { 'rge': 2.0, 'qualibat': 1.8, 'decennale': 2.0, 'caces': 1.0 }
+  },
+  '41.20A': { // Entreprise générale
+    label: 'Entreprise générale bâtiment',
+    coef: { 'qualibat': 2.0, 'decennale': 2.5, 'caces': 1.5, 'habil_elec': 1.2, 'qualifelec': 1.2 }
+  }
+};
+
+// ── Documents ENTREPRISE (selon ta spec) ───────────────────────────
+let DOC_CATEGORIES = [
+  {
+    id: 'identite', icon: '🏛️', color: '#7b74d9', name: 'Identité de l\'entreprise',
+    docs: [
+      { id: 'kbis',       name: 'Extrait Kbis', sub: 'Moins de 3 mois', crit: 'critique', status: 'expire', expiry: '2026-08-12', daysLeft: 76, weight: 3 },
+      { id: 'statuts',    name: 'Statuts de la société', sub: 'À jour si modification', crit: 'obligatoire', status: 'ok', expiry: null, lastUpdate: '2024-03-15', weight: 2 },
+      { id: 'insee',      name: 'Attestation INSEE (SIRET / APE)', sub: '', crit: 'obligatoire', status: 'ok', expiry: null, lastUpdate: '2025-01-08', weight: 2 },
+      { id: 'cni_dir',    name: 'Pièce d\'identité du dirigeant', sub: '', crit: 'obligatoire', status: 'ok', expiry: '2028-11-04', weight: 2 },
+    ]
+  },
+  {
+    id: 'social', icon: '👥', color: '#e09a42', name: 'Obligations sociales (URSSAF & salariés)',
+    docs: [
+      { id: 'urssaf',     name: 'Attestation de vigilance URSSAF', sub: 'À renouveler tous les 6 mois', crit: 'critique', status: 'expire', expiry: '2026-06-15', daysLeft: 18, weight: 3 },
+      { id: 'dsn',        name: 'Déclarations sociales (DSN)', sub: 'Mensuel', crit: 'critique', status: 'ok', expiry: '2026-06-05', weight: 3 },
+      { id: 'rup',        name: 'Registre unique du personnel', sub: 'Continu', crit: 'critique', status: 'ok', lastUpdate: '2026-05-10', weight: 3 },
+      { id: 'contrats',   name: 'Contrats de travail', sub: '14 salariés', crit: 'critique', status: 'partial', missing: 2, weight: 3 },
+      { id: 'paie',       name: 'Bulletins de paie', sub: 'Mensuel', crit: 'critique', status: 'ok', lastUpdate: '2026-05-31', weight: 3 },
+      { id: 'dpae',       name: 'DPAE (Déclaration préalable embauche)', sub: '', crit: 'critique', status: 'ok', lastUpdate: '2026-04-12', weight: 3 },
+    ]
+  },
+  {
+    id: 'fiscal', icon: '💶', color: '#4dbe98', name: 'Obligations fiscales',
+    docs: [
+      { id: 'fiscal_att', name: 'Attestation de régularité fiscale', sub: 'Annuel', crit: 'obligatoire', status: 'ok', expiry: '2026-12-31', weight: 2 },
+      { id: 'tva',        name: 'Déclarations TVA / IS', sub: 'Mensuel/trimestriel', crit: 'critique', status: 'ok', lastUpdate: '2026-05-15', weight: 3 },
+      { id: 'comptes',    name: 'Comptes annuels (bilan, résultat)', sub: 'Exercice N-1', crit: 'obligatoire', status: 'ok', lastUpdate: '2025-09-30', weight: 2 },
+    ]
+  },
+  {
+    id: 'assur', icon: '🛡️', color: '#1f6feb', name: 'Assurances obligatoires',
+    docs: [
+      { id: 'rc_pro',     name: 'Assurance Responsabilité Civile Pro', sub: '', crit: 'critique', status: 'ok', expiry: '2027-01-31', weight: 3 },
+      { id: 'decennale',  name: 'Assurance décennale', sub: 'Critique BTP', crit: 'critique', status: 'expire', expiry: '2026-07-15', daysLeft: 48, weight: 3 },
+      { id: 'att_jour',   name: 'Attestations à jour (clients)', sub: 'À fournir aux clients', crit: 'obligatoire', status: 'ok', weight: 2 },
+    ]
+  },
+  {
+    id: 'secu', icon: '🦺', color: '#d63b3b', name: 'Sécurité & conformité chantier',
+    docs: [
+      { id: 'duerp',      name: 'Document Unique (DUERP)', sub: 'Annuel / màj', crit: 'critique', status: 'manquant', weight: 3 },
+      { id: 'ppsps',      name: 'PPSPS', sub: 'Si chantier concerné', crit: 'obligatoire', status: 'ok', lastUpdate: '2026-03-22', weight: 2 },
+      { id: 'plan_prev',  name: 'Plan de prévention', sub: 'Si 400h+ ou travaux dangereux', crit: 'obligatoire', status: 'ok', weight: 2 },
+      { id: 'reg_secu',   name: 'Registre sécurité', sub: 'Continu', crit: 'obligatoire', status: 'ok', weight: 2 },
+    ]
+  },
+  {
+    id: 'qual', icon: '🏅', color: '#0fb5a0', name: 'Qualifications professionnelles',
+    docs: [
+      { id: 'qualifelec', name: 'Qualifelec', sub: 'Spécifique électricien', crit: 'recommande', status: 'ok', expiry: '2027-04-12', weight: 1 },
+      { id: 'rge',        name: 'Certificat RGE', sub: 'Reconnu Garant Environnement', crit: 'recommande', status: 'manquant', weight: 1 },
+    ]
+  }
+];
+
+// ── Salariés détaillés ─────────────────────────────────────────────
+let EMPLOYEES = [
+  {
+    id:'emp1', name:'Pierre Lefèvre', role:"Chef d'équipe", conformity:92, missing:1,
+    alerts:'CACES expire dans 22j',
+    contact:{ email:'p.lefevre@elecpro-lyon.fr', phone:'+33 6 12 34 56 78', birth:'1978-04-12', start:'2019-03-01' },
+    chantiers:['ch1','ch3'],
+    docs:[
+      { name:'Contrat de travail signé',    cat:'Identité', status:'ok',     expiry:null,         lastUpdate:'2019-03-01' },
+      { name:"Carte d'identité",            cat:'Identité', status:'ok',     expiry:'2029-08-15', lastUpdate:null },
+      { name:'Carte Vitale',                cat:'Identité', status:'ok',     expiry:null,         lastUpdate:'2024-01-12' },
+      { name:'Carte BTP',                   cat:'BTP',      status:'ok',     expiry:'2028-04-10', lastUpdate:null },
+      { name:'Visite médicale',             cat:'BTP',      status:'ok',     expiry:'2026-11-22', lastUpdate:null },
+      { name:'Affiliation CIBTP',           cat:'BTP',      status:'ok',     expiry:null,         lastUpdate:'2019-03-15' },
+      { name:'CACES R486 (nacelle)',        cat:'Formation',status:'expire', expiry:'2026-06-19', daysLeft:22 },
+      { name:'Habilitation B1V/B2V/BR',     cat:'Formation',status:'ok',     expiry:'2027-02-08', lastUpdate:null },
+      { name:'Travail en hauteur',          cat:'Formation',status:'ok',     expiry:'2026-12-05', lastUpdate:null },
+      { name:'SST',                         cat:'Formation',status:'ok',     expiry:'2027-09-14', lastUpdate:null },
+      { name:'EPI signés',                  cat:'Suivi',    status:'ok',     expiry:null,         lastUpdate:'2025-09-10' },
+      { name:'Fiche de poste',              cat:'Suivi',    status:'ok',     expiry:null,         lastUpdate:'2024-06-15' },
+    ]
+  },
+  {
+    id:'emp2', name:'Sophie Martin', role:'Électricienne', conformity:78, missing:3,
+    alerts:'Visite médicale expirée · Habilitation B1V à renouveler',
+    contact:{ email:'s.martin@elecpro-lyon.fr', phone:'+33 6 23 45 67 89', birth:'1990-09-22', start:'2021-09-06' },
+    chantiers:['ch1'],
+    docs:[
+      { name:'Contrat de travail signé',    cat:'Identité', status:'ok',     expiry:null,         lastUpdate:'2021-09-06' },
+      { name:"Carte d'identité",            cat:'Identité', status:'ok',     expiry:'2030-05-18', lastUpdate:null },
+      { name:'Carte Vitale',                cat:'Identité', status:'ok',     expiry:null,         lastUpdate:'2023-04-02' },
+      { name:'Carte BTP',                   cat:'BTP',      status:'ok',     expiry:'2027-09-15', lastUpdate:null },
+      { name:'Visite médicale',             cat:'BTP',      status:'expire', expiry:'2026-04-30', daysLeft:-28 },
+      { name:'Affiliation CIBTP',           cat:'BTP',      status:'ok',     expiry:null,         lastUpdate:'2021-09-20' },
+      { name:'CACES',                       cat:'Formation',status:'manquant',expiry:null,        lastUpdate:null },
+      { name:'Habilitation B1V/BR',         cat:'Formation',status:'expire', expiry:'2026-07-12', daysLeft:45 },
+      { name:'Travail en hauteur',          cat:'Formation',status:'ok',     expiry:'2027-01-22', lastUpdate:null },
+      { name:'SST',                         cat:'Formation',status:'ok',     expiry:'2027-06-30', lastUpdate:null },
+      { name:'EPI signés',                  cat:'Suivi',    status:'ok',     expiry:null,         lastUpdate:'2025-10-05' },
+      { name:'Fiche de poste',              cat:'Suivi',    status:'manquant',expiry:null,        lastUpdate:null },
+    ]
+  },
+  {
+    id:'emp3', name:'Karim Benzina', role:'Apprenti électrique', conformity:95, missing:0,
+    alerts:'',
+    contact:{ email:'k.benzina@elecpro-lyon.fr', phone:'+33 6 34 56 78 90', birth:'2002-11-08', start:'2024-09-02' },
+    chantiers:['ch3'],
+    docs:[
+      { name:"Contrat d'apprentissage",     cat:'Identité', status:'ok',     expiry:'2027-08-31', lastUpdate:'2024-09-02' },
+      { name:"Carte d'identité",            cat:'Identité', status:'ok',     expiry:'2032-03-04', lastUpdate:null },
+      { name:'Carte Vitale',                cat:'Identité', status:'ok',     expiry:null,         lastUpdate:'2024-09-15' },
+      { name:'Carte BTP',                   cat:'BTP',      status:'ok',     expiry:'2029-09-10', lastUpdate:null },
+      { name:'Visite médicale',             cat:'BTP',      status:'ok',     expiry:'2026-09-15', lastUpdate:null },
+      { name:'Affiliation CIBTP',           cat:'BTP',      status:'ok',     expiry:null,         lastUpdate:'2024-09-20' },
+      { name:'Habilitation B0',             cat:'Formation',status:'ok',     expiry:'2027-05-08', lastUpdate:null },
+      { name:'SST',                         cat:'Formation',status:'ok',     expiry:'2027-04-12', lastUpdate:null },
+      { name:'EPI signés',                  cat:'Suivi',    status:'ok',     expiry:null,         lastUpdate:'2024-09-12' },
+    ]
+  },
+  {
+    id:'emp4', name:'Julien Roy', role:'Électricien N2', conformity:100, missing:0,
+    alerts:'',
+    contact:{ email:'j.roy@elecpro-lyon.fr', phone:'+33 6 45 67 89 01', birth:'1985-06-30', start:'2015-11-02' },
+    chantiers:['ch1','ch2'],
+    docs:[
+      { name:'Contrat de travail signé',    cat:'Identité', status:'ok',     expiry:null,         lastUpdate:'2015-11-02' },
+      { name:"Carte d'identité",            cat:'Identité', status:'ok',     expiry:'2028-12-12', lastUpdate:null },
+      { name:'Carte BTP',                   cat:'BTP',      status:'ok',     expiry:'2028-11-08', lastUpdate:null },
+      { name:'Visite médicale',             cat:'BTP',      status:'ok',     expiry:'2027-02-14', lastUpdate:null },
+      { name:'Habilitation B1V/B2V/BR/BC',  cat:'Formation',status:'ok',     expiry:'2027-08-22', lastUpdate:null },
+      { name:'Travail en hauteur',          cat:'Formation',status:'ok',     expiry:'2027-03-10', lastUpdate:null },
+      { name:'SST',                         cat:'Formation',status:'ok',     expiry:'2028-01-25', lastUpdate:null },
+      { name:'EPI signés',                  cat:'Suivi',    status:'ok',     expiry:null,         lastUpdate:'2026-01-08' },
+    ]
+  },
+  {
+    id:'emp5', name:'Aïcha Naïm', role:'Technicienne', conformity:88, missing:1,
+    alerts:'Travail en hauteur à renouveler',
+    contact:{ email:'a.naim@elecpro-lyon.fr', phone:'+33 6 56 78 90 12', birth:'1992-02-17', start:'2022-04-04' },
+    chantiers:['ch3','ch4'],
+    docs:[
+      { name:'Contrat de travail signé',    cat:'Identité', status:'ok',     expiry:null,         lastUpdate:'2022-04-04' },
+      { name:"Carte d'identité",            cat:'Identité', status:'ok',     expiry:'2031-07-05', lastUpdate:null },
+      { name:'Carte BTP',                   cat:'BTP',      status:'ok',     expiry:'2027-04-11', lastUpdate:null },
+      { name:'Visite médicale',             cat:'BTP',      status:'ok',     expiry:'2026-08-20', lastUpdate:null },
+      { name:'Habilitation B1V',            cat:'Formation',status:'ok',     expiry:'2027-01-15', lastUpdate:null },
+      { name:'Travail en hauteur',          cat:'Formation',status:'expire', expiry:'2026-07-02', daysLeft:35 },
+      { name:'SST',                         cat:'Formation',status:'ok',     expiry:'2027-11-04', lastUpdate:null },
+      { name:'EPI signés',                  cat:'Suivi',    status:'ok',     expiry:null,         lastUpdate:'2025-06-10' },
+    ]
+  },
+];
+
+// ── Chantiers ──────────────────────────────────────────────────────
+let CHANTIERS = [
+  {
+    id: 'ch1', name: 'Réhabilitation Hôpital Saint-Joseph', client: 'AP-HP Lyon', status: 'en_cours',
+    montant: '485 000 €', dateDebut: '2026-03-15', dateFin: '2026-09-30',
+    progress: 42, conformity: 68, location: 'Lyon 7e'
+  },
+  {
+    id: 'ch2', name: 'Câblage Datacenter Velocity', client: 'Velocity Networks', status: 'appel_offres',
+    montant: '215 000 €', dateDebut: '2026-07-01', dateFin: '2026-10-15',
+    progress: 0, conformity: 85, location: 'Villeurbanne'
+  },
+  {
+    id: 'ch3', name: 'Mise aux normes Lycée Carnot', client: 'Région AURA', status: 'en_cours',
+    montant: '128 000 €', dateDebut: '2026-04-01', dateFin: '2026-07-31',
+    progress: 65, conformity: 91, location: 'Vénissieux'
+  },
+  {
+    id: 'ch4', name: 'Rénovation Tour Oxygène', client: 'Bouygues Immo', status: 'termine',
+    montant: '342 000 €', dateDebut: '2025-09-01', dateFin: '2026-02-28',
+    progress: 100, conformity: 96, location: 'Lyon Part-Dieu', rgDate: '2027-02-28'
+  },
+];
+
+// ── Sous-traitants détaillés ───────────────────────────────────────
+let SUBCONTRACTORS = [
+  {
+    id:'st1', name:'Élec Pro Services', siret:'512 345 678 00021', status:'valide',
+    docs:7, total:7, validDate:'2026-05-12',
+    contact:{ email:'contact@elec-pro-services.fr', phone:'+33 4 78 12 34 56', address:'45 av. des Frères Lumière, 69008 Lyon' },
+    chantier:'Hôpital Saint-Joseph',
+    montant:'85 000 €',
+    docList:[
+      { name:'Kbis (moins de 3 mois)',    status:'ok', date:'2026-04-22' },
+      { name:'Attestation URSSAF',         status:'ok', date:'2026-03-18' },
+      { name:'Attestation fiscale',        status:'ok', date:'2026-04-05' },
+      { name:'Assurance RC Pro',           status:'ok', date:'2026-12-31' },
+      { name:'Assurance décennale',        status:'ok', date:'2027-01-15' },
+      { name:'RIB',                        status:'ok', date:'2025-09-01' },
+      { name:'Contrat de sous-traitance',  status:'ok', date:'2026-05-12' },
+    ]
+  },
+  {
+    id:'st2', name:'Câblage Express', siret:'623 456 789 00015', status:'a_verifier',
+    docs:5, total:7, validDate:null,
+    contact:{ email:'admin@cablage-express.com', phone:'+33 4 72 45 67 89', address:'12 rue du Commerce, 69100 Villeurbanne' },
+    chantier:'Lycée Carnot',
+    montant:'42 000 €',
+    docList:[
+      { name:'Kbis (moins de 3 mois)',    status:'ok',       date:'2026-03-15' },
+      { name:'Attestation URSSAF',         status:'expire',   date:'2026-05-30', alert:'Expire dans 2 jours' },
+      { name:'Attestation fiscale',        status:'ok',       date:'2026-04-12' },
+      { name:'Assurance RC Pro',           status:'ok',       date:'2026-11-08' },
+      { name:'Assurance décennale',        status:'manquant', date:null },
+      { name:'RIB',                        status:'ok',       date:'2025-11-20' },
+      { name:'Contrat de sous-traitance',  status:'manquant', date:null },
+    ]
+  },
+  {
+    id:'st3', name:'TechniBat', siret:'734 567 890 00008', status:'attente',
+    docs:3, total:7, validDate:null,
+    contact:{ email:'contact@technibat.fr', phone:'+33 4 78 90 12 34', address:'8 chemin de la Plaine, 69500 Bron' },
+    chantier:'Datacenter Velocity',
+    montant:'28 000 €',
+    docList:[
+      { name:'Kbis (moins de 3 mois)',    status:'ok',       date:'2026-05-02' },
+      { name:'Attestation URSSAF',         status:'manquant', date:null },
+      { name:'Attestation fiscale',        status:'manquant', date:null },
+      { name:'Assurance RC Pro',           status:'ok',       date:'2027-03-15' },
+      { name:'Assurance décennale',        status:'manquant', date:null },
+      { name:'RIB',                        status:'ok',       date:'2025-08-12' },
+      { name:'Contrat de sous-traitance',  status:'manquant', date:null },
+    ]
+  },
+];
+
+// ── Risques extraits CCTP ──────────────────────────────────────────
+let RISKS = [
+  { id:'r1', sev:'high',   cat:'Pénalité retard', ref:'CCAP §7.2',  desc:'Pénalité de 1/3000 du marché par jour de retard',
+    detail:'Plafonnée à 5% du montant HT. Le délai contractuel est de 198 jours calendaires. À 1/3000 par jour ouvré, le calcul donne 161,67 € par jour de retard sur un marché de 485 000 €.',
+    impact:'Jusqu\'à 24 250 € de pénalités cumulées', deadline:'Réception au 30/09/2026',
+    actions:['Créer rappel J-30', 'Alerter chef de chantier'] },
+  { id:'r2', sev:'high',   cat:'Documents',       ref:'CCAP §4.5',  desc:'Remise du DOE sous 30 jours après réception',
+    detail:'Tout retard entraîne une retenue de 2 000 € par semaine de retard. Le DOE doit comporter : plans d\'exécution, notices techniques, attestations de conformité, et procès-verbaux d\'essais.',
+    impact:'Retenue de 2 000 €/semaine', deadline:'30 jours après PV de réception',
+    actions:['Bloquer clôture sans DOE'] },
+  { id:'r3', sev:'medium', cat:'Réunions',        ref:'CCAP §9.1',  desc:'Amende de 500 € par absence aux réunions de chantier',
+    detail:'Présence obligatoire du chef de chantier + responsable QSE. Réunion hebdo le mercredi 14h. Convocation envoyée 48h avant. Procès-verbal signé en fin de réunion.',
+    impact:'500 € par absence', deadline:'Tous les mercredis 14h',
+    actions:['Planifier dans calendrier'] },
+  { id:'r4', sev:'medium', cat:'Sécurité',        ref:'CCTP §12.3', desc:'Présence permanente d\'un SST sur site',
+    detail:'Au moins un Sauveteur Secouriste du Travail doit être présent toute la durée des travaux. Vérification possible à tout moment par le CSPS. Sanction : arrêt de chantier immédiat.',
+    impact:'Arrêt de chantier possible', deadline:'Tous les jours travaillés',
+    actions:['Vérifier formations équipe'] },
+  { id:'r5', sev:'low',    cat:'Environnement',   ref:'CCTP §15',   desc:'Tri obligatoire des déchets sur 5 flux',
+    detail:'BSD à transmettre mensuellement au maître d\'ouvrage. Flux : bois, métaux, plâtre, plastiques, mélange. Charte chantier propre à signer en début de chantier.',
+    impact:'Pénalités libératoires possibles', deadline:'BSD mensuel',
+    actions:['Activer suivi BSD'] },
+];
+
+// ── DOE & Passeports produits (DPP / CPR) ──────────────────────────
+// Produits posés par chantier. Chaque produit doit réunir 5 pièces :
+// dpp (passeport produit EU), epd (déclaration environnementale),
+// dop (déclaration de performance CE), ce (marquage CE), notice.
+const DOE_DOCS = [
+  { id:'dpp',    label:'Passeport DPP',      sub:'Registre EU / QR' },
+  { id:'epd',    label:'EPD (env.)',         sub:'EN 15804' },
+  { id:'dop',    label:'DoP (perf. CE)',     sub:'Déclaration de performance' },
+  { id:'ce',     label:'Marquage CE',        sub:'Certificat conformité' },
+  { id:'notice', label:'Notice technique',   sub:'Pose & entretien' },
+];
+let DOE = [
+  {
+    chantierId:'ch1', chantierName:'Réhabilitation Hôpital Saint-Joseph', moa:'AP-HP Lyon',
+    reception:'2026-09-30', statut:'en_cours',
+    produits:[
+      { id:'p1', name:'Tableau électrique Prisma G', fabricant:'Schneider Electric', ref:'LVSPGX42', qte:'6 u.', zone:'Niveau 2 — local TGBT',
+        docs:{ dpp:'ok', epd:'ok', dop:'ok', ce:'ok', notice:'ok' } },
+      { id:'p2', name:'Câble U-1000 R2V 5G6', fabricant:'Nexans', ref:'R2V5G6', qte:'1 200 m', zone:'Distribution générale',
+        docs:{ dpp:'ok', epd:'manquant', dop:'ok', ce:'ok', notice:'ok' } },
+      { id:'p3', name:'Luminaire LED étanche', fabricant:'Trilux', ref:'OLEVEON-1500', qte:'85 u.', zone:'Circulations & locaux techniques',
+        docs:{ dpp:'manquant', epd:'manquant', dop:'manquant', ce:'ok', notice:'ok' } },
+      { id:'p4', name:'Disjoncteur différentiel iID', fabricant:'Schneider Electric', ref:'A9R61440', qte:'24 u.', zone:'Tableaux divisionnaires',
+        docs:{ dpp:'ok', epd:'ok', dop:'ok', ce:'ok', notice:'manquant' } },
+    ]
+  },
+  {
+    chantierId:'ch3', chantierName:'Mise aux normes Lycée Carnot', moa:'Région AURA',
+    reception:'2026-07-31', statut:'en_cours',
+    produits:[
+      { id:'p5', name:'Chemin de câbles galva', fabricant:'Cablofil', ref:'CF54-300', qte:'340 m', zone:'Combles & gaines techniques',
+        docs:{ dpp:'ok', epd:'ok', dop:'ok', ce:'ok', notice:'ok' } },
+      { id:'p6', name:'Bloc autonome BAES', fabricant:'Legrand', ref:'062521', qte:'42 u.', zone:'Évacuation / sécurité',
+        docs:{ dpp:'ok', epd:'manquant', dop:'ok', ce:'ok', notice:'ok' } },
+    ]
+  },
+  {
+    chantierId:'ch4', chantierName:'Rénovation Tour Oxygène', moa:'Bouygues Immo',
+    reception:'2026-02-28', statut:'a_transmettre',
+    produits:[
+      { id:'p7', name:'Coffret de comptage Resi9', fabricant:'Schneider Electric', ref:'R9H13407', qte:'18 u.', zone:'Paliers logements',
+        docs:{ dpp:'ok', epd:'ok', dop:'ok', ce:'ok', notice:'ok' } },
+      { id:'p8', name:'Prise RJ45 cat.6', fabricant:'Legrand', ref:'076563', qte:'210 u.', zone:'VDI tous niveaux',
+        docs:{ dpp:'ok', epd:'ok', dop:'ok', ce:'ok', notice:'ok' } },
+      { id:'p9', name:'Interrupteur Mosaic', fabricant:'Legrand', ref:'077010', qte:'310 u.', zone:'Logements',
+        docs:{ dpp:'ok', epd:'ok', dop:'ok', ce:'ok', notice:'ok' } },
+    ]
+  },
+];
+function doeProduitPct(p){
+  const tot = DOE_DOCS.length;
+  const ok = DOE_DOCS.filter(d=>p.docs[d.id]==='ok').length;
+  return Math.round(ok/tot*100);
+}
+function doeChantierPct(c){
+  const all = c.produits.flatMap(p=>DOE_DOCS.map(d=>p.docs[d.id]));
+  const ok = all.filter(s=>s==='ok').length;
+  return Math.round(ok/all.length*100);
+}
+
+// ── Rôles ──────────────────────────────────────────────────────────
+const ROLES = [
+  { id:'super_admin', icon:'👑', color:'#e0a829', name:'Super Admin',
+    desc:'Accès total à tout — création utilisateurs, facturation, paramètres globaux.',
+    perms:['Tout voir','Tout modifier','Gérer utilisateurs','Facturation'] },
+  { id:'admin_co', icon:'🏢', color:'#1f6feb', name:'Admin entreprise',
+    desc:'Gère documents société, chantiers, équipe et sous-traitance.',
+    perms:['Docs société','Chantiers','Salariés','Sous-traitants'] },
+  { id:'qse', icon:'🦺', color:'#d63b3b', name:'Responsable QSE',
+    desc:'Conformité documentaire et risques chantier — accès lecture facturation.',
+    perms:['Docs société','Conformité','Risques chantier','Alertes'] },
+  { id:'charge_aff', icon:'📋', color:'#0fb5a0', name:'Chargé d\'affaires',
+    desc:'Appels d\'offres, déclarations ST, dossiers partagés clients.',
+    perms:['Appels d\'offres','Sous-traitance','Partage client'] },
+  { id:'collab', icon:'👤', color:'#8a96a8', name:'Collaborateur',
+    desc:'Dépôt de ses propres documents et consultation chantiers affectés.',
+    perms:['Ses documents','Ses chantiers','Lecture seule équipe'] },
+  { id:'externe', icon:'🤝', color:'#e07aa0', name:'Partenaire externe',
+    desc:'CSPS, MOE, Client — accès uniquement aux dossiers partagés.',
+    perms:['Dossiers partagés','Valider/refuser','Commenter'] },
+];
+
+// ── Notifications ──────────────────────────────────────────────────
+let NOTIFICATIONS = [
+  { type:'crit', text:'Décennale expire dans 48 jours', time:'Il y a 2h' },
+  { type:'crit', text:'DUERP manquant — mise à jour requise', time:'Il y a 5h' },
+  { type:'warn', text:'CACES de Pierre Lefèvre expire dans 22 jours', time:'Hier' },
+  { type:'obl',  text:'Câblage Express : 2 documents manquants', time:'Hier' },
+  { type:'ok',   text:'Validation reçue du CSPS pour Hôpital St-Joseph', time:'Il y a 2 jours' },
+];
+
+// ── Helpers ────────────────────────────────────────────────────────
+function $(s, ctx=document){ return ctx.querySelector(s); }
+function $$(s, ctx=document){ return Array.from(ctx.querySelectorAll(s)); }
+function fmtDate(d){ if(!d) return '—'; const dt=new Date(d); return dt.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'}); }
+function daysUntil(d){ if(!d) return null; const diff=new Date(d)-new Date(); return Math.floor(diff/86400000); }
+
+function critTag(c){
+  if(c==='critique')    return `<span class="tag tag-crit">🔴 Critique</span>`;
+  if(c==='obligatoire') return `<span class="tag tag-obl">🔵 Obligatoire</span>`;
+  if(c==='recommande')  return `<span class="tag tag-warn">🟡 Recommandé</span>`;
+  return `<span class="tag tag-muted">—</span>`;
+}
+function statusIcon(s){
+  if(s==='ok')        return `<div class="doc-status-ic" style="background:var(--ok-bg);color:var(--ok)">✓</div>`;
+  if(s==='expire')    return `<div class="doc-status-ic" style="background:var(--warn-bg);color:var(--warn)">!</div>`;
+  if(s==='manquant')  return `<div class="doc-status-ic" style="background:var(--crit-bg);color:var(--crit)">✕</div>`;
+  if(s==='partial')   return `<div class="doc-status-ic" style="background:var(--warn-bg);color:var(--warn)">~</div>`;
+  return `<div class="doc-status-ic" style="background:var(--bg);color:var(--ink3)">?</div>`;
+}
+
+// ── Compute scoring ────────────────────────────────────────────────
+function computeScore(){
+  const naf = NAF_WEIGHTS[STATE.company.naf] || NAF_WEIGHTS['43.21A'];
+  let pointsTotal = 0, pointsObtained = 0;
+  const axes = {};
+
+  DOC_CATEGORIES.forEach(cat => {
+    let axeTotal = 0, axeObt = 0;
+    cat.docs.forEach(d => {
+      const coef = naf.coef[d.id] || 1.0;
+      const max = d.weight * coef;
+      let obtained = 0;
+      if(d.status==='ok') obtained = max;
+      else if(d.status==='expire' && d.daysLeft > 30) obtained = max * 0.7;
+      else if(d.status==='expire') obtained = max * 0.3;
+      else if(d.status==='partial') obtained = max * 0.5;
+      else obtained = 0;
+      pointsTotal += max;
+      pointsObtained += obtained;
+      axeTotal += max;
+      axeObt += obtained;
+    });
+    axes[cat.id] = Math.round((axeObt/axeTotal)*100) || 0;
+  });
+  const global = Math.round((pointsObtained/pointsTotal)*100);
+  let grade = 'C';
+  if(global >= 90) grade = 'A+';
+  else if(global >= 80) grade = 'A';
+  else if(global >= 70) grade = 'B';
+  else if(global >= 60) grade = 'C';
+  else grade = 'D';
+  return { global, axes, grade, naf: naf.label };
+}
+
+// ── Ring SVG ───────────────────────────────────────────────────────
+function ring(value, size=108, stroke=10, trackColor='rgba(255,255,255,.15)', valueColor='#0fb5a0'){
+  const r = (size - stroke)/2;
+  const c = 2 * Math.PI * r;
+  const off = c * (1 - value/100);
+  return `<svg width="${size}" height="${size}">
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${trackColor}" stroke-width="${stroke}"/>
+    <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${valueColor}" stroke-width="${stroke}" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"/>
+  </svg>`;
+}
+function ringColor(val){
+  if(val>=80) return '#0fb5a0';
+  if(val>=60) return '#e0a829';
+  return '#d63b3b';
+}
+
+// ── Navigation ─────────────────────────────────────────────────────
+function showScreen(id){
+  $$('.screen').forEach(s=>s.classList.remove('active'));
+  const target = $('#'+id);
+  if(target) target.classList.add('active');
+  window.scrollTo(0,0);
+}
+function showApp(){
+  $('.app').classList.add('active');
+  $$('.screen').forEach(s=>s.classList.remove('active'));
+}
+function navTo(section){
+  $$('.sb-link').forEach(l=>l.classList.remove('active'));
+  $$('.sb-sublink').forEach(l=>l.classList.remove('active'));
+  $$('.page-section').forEach(p=>p.classList.remove('active'));
+  const lnk = $(`[data-nav="${section}"]`);
+  if(lnk) lnk.classList.add('active');
+  const page = $(`#page-${section}`);
+  if(page){ page.classList.add('active'); renderPageHeader(section); }
+  // also handle sub-nav: if section starts with conf- or chantier- etc, find parent link
+  if(section.includes('-')){
+    const parent = section.split('-')[0];
+    const parentLnk = $(`.sb-link[data-nav-parent="${parent}"]`);
+    if(parentLnk) parentLnk.classList.add('active');
+  }
+  $('.main-area').scrollTop = 0;
+}
+function renderPageHeader(section){
+  const map = {
+    'dashboard':       {h1:'Tableau de bord',                 crumb:'Vue d\'ensemble'},
+    'conf-docs':       {h1:'Documents société',                crumb:'Conformité entreprise / Documents'},
+    'conf-score':      {h1:'Score de conformité',              crumb:'Conformité entreprise / Score'},
+    'conf-salaries':   {h1:'Conformité salariés',              crumb:'Conformité entreprise / Salariés'},
+    'chantier-list':   {h1:'Chantiers',                        crumb:'Gestion chantier / Liste'},
+    'chantier-st':     {h1:'Sous-traitance',                   crumb:'Gestion chantier / Sous-traitance'},
+    'chantier-risques':{h1:'Analyse risques chantier',         crumb:'Gestion chantier / Analyse risques'},
+    'chantier-doe':    {h1:'DOE & Passeports produits',         crumb:'Gestion chantier / DOE numérique'},
+    'collab-partage':  {h1:'Partage sécurisé',                 crumb:'Collaboration externe / Partages'},
+    'collab-valid':    {h1:'Validations partenaires',          crumb:'Collaboration externe / Validations'},
+    'collab-roles':    {h1:'Rôles & permissions',              crumb:'Collaboration externe / Rôles'},
+  };
+  const m = map[section] || {h1:'Sylanty', crumb:''};
+  const tb = $('.topbar h1'); if(tb) tb.textContent = m.h1;
+  const cr = $('.topbar .crumb'); if(cr) cr.textContent = m.crumb;
+}
+
+// ── Toast ──────────────────────────────────────────────────────────
+function toast(msg, icon='✓'){
+  const t = $('#toast');
+  t.innerHTML = `<span style="font-size:18px">${icon}</span> ${msg}`;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+// ── Modal ──────────────────────────────────────────────────────────
+function openModal(html, large=false){
+  const overlay = $('#modal-overlay');
+  overlay.innerHTML = `<div class="modal ${large?'modal-lg':''}">${html}</div>`;
+  overlay.classList.add('show');
+  overlay.onclick = (e)=>{ if(e.target===overlay) closeModal(); };
+}
+function closeModal(){ $('#modal-overlay').classList.remove('show'); }
+
+// ════════════════════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ════════════════════════════════════════════════════════════════════
+
+function renderDashboard(){
+  const sc = computeScore();
+  const ringEl = $('#dash-score-ring');
+  if(ringEl){
+    ringEl.innerHTML = ring(sc.global, 140, 12, 'rgba(255,255,255,.15)', ringColor(sc.global));
+    $('#dash-score-val').innerHTML = `<div class="n">${sc.global}<span style="font-size:18px;color:rgba(255,255,255,.5);font-weight:500">/100</span></div><div class="l">Conformité globale</div>`;
+  }
+  const bars = $('#dash-score-bars');
+  if(bars){
+    const labels = { identite:'Identité', social:'Social URSSAF', fiscal:'Fiscal', assur:'Assurances', secu:'Sécurité chantier', qual:'Qualifications' };
+    bars.innerHTML = Object.entries(sc.axes).map(([k,v])=>`
+      <div class="score-bar-row">
+        <span class="lab">${labels[k]||k}</span>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:${v}%;background:${ringColor(v)}"></div></div>
+        <span class="pct">${v}%</span>
+      </div>
+    `).join('');
+  }
+
+  // Critical alerts
+  const alerts = [];
+  DOC_CATEGORIES.forEach(cat=>{
+    cat.docs.forEach(d=>{
+      if(d.status==='manquant'){
+        alerts.push({type:'crit', ic:'✕', cat: cat.name, title:`${d.name} — manquant`, meta:`${critTag(d.crit)} · À déposer immédiatement`, action:'Ajouter le document'});
+      } else if(d.status==='expire' && d.daysLeft <= 60){
+        const cls = d.daysLeft <= 30 ? 'danger' : 'warning';
+        alerts.push({type: d.daysLeft<=30?'crit':'warn', ic:'⏰', cat:cat.name, title:`${d.name}`, meta:`${critTag(d.crit)} · <span class="date ${cls}">Expire dans ${d.daysLeft} jours</span> (${fmtDate(d.expiry)})`, action:'Renouveler'});
+      } else if(d.status==='partial'){
+        alerts.push({type:'warn', ic:'~', cat:cat.name, title:`${d.name} — ${d.missing} document(s) manquant(s)`, meta:`${critTag(d.crit)} · Complétez le dossier`, action:'Compléter'});
+      }
+    });
+  });
+  // RG à récupérer
+  CHANTIERS.filter(c=>c.status==='termine' && c.rgDate).forEach(c=>{
+    const days = daysUntil(c.rgDate);
+    alerts.push({type:'obl', ic:'💰', cat:'RG à récupérer', title:`Retenue de garantie — ${c.name}`, meta:`Libération le ${fmtDate(c.rgDate)} <span class="date">(dans ${days} jours)</span>`, action:'Relancer client'});
+  });
+
+  const alertsEl = $('#dash-alerts');
+  if(alertsEl){
+    alertsEl.innerHTML = alerts.slice(0,6).map(a=>`
+      <div class="alert-item ${a.type}">
+        <div class="alert-ic" style="background:${a.type==='crit'?'var(--crit-bg)':a.type==='warn'?'var(--warn-bg)':'var(--obl-bg)'};color:${a.type==='crit'?'var(--crit)':a.type==='warn'?'var(--warn)':'var(--obl)'}">${a.ic}</div>
+        <div class="alert-body">
+          <div class="alert-title">${a.title}</div>
+          <div class="alert-meta">${a.meta}</div>
+        </div>
+        <button class="btn btn-sm btn-outline" onclick="navTo('conf-docs')">${a.action} →</button>
+      </div>
+    `).join('');
+  }
+
+  // KPIs
+  const kpis = $('#dash-kpis');
+  if(kpis){
+    const crit = alerts.filter(a=>a.type==='crit').length;
+    const exp = DOC_CATEGORIES.flatMap(c=>c.docs).filter(d=>d.status==='expire').length;
+    const totalDocs = DOC_CATEGORIES.flatMap(c=>c.docs).length;
+    const okDocs = DOC_CATEGORIES.flatMap(c=>c.docs).filter(d=>d.status==='ok').length;
+    kpis.innerHTML = `
+      <div class="kpi">
+        <div class="kpi-top"><span class="kpi-label">Documents valides</span><div class="kpi-ic" style="background:var(--ok-bg);color:var(--ok)">✓</div></div>
+        <div class="kpi-val">${okDocs}<span style="font-size:18px;color:var(--ink3);font-weight:500">/${totalDocs}</span></div>
+        <div class="kpi-sub">${Math.round(okDocs/totalDocs*100)}% du référentiel</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><span class="kpi-label">Alertes critiques</span><div class="kpi-ic" style="background:var(--crit-bg);color:var(--crit)">!</div></div>
+        <div class="kpi-val" style="color:var(--crit)">${crit}</div>
+        <div class="kpi-sub">à traiter immédiatement</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><span class="kpi-label">Expirent &lt; 60j</span><div class="kpi-ic" style="background:var(--warn-bg);color:var(--warn)">⏰</div></div>
+        <div class="kpi-val" style="color:var(--warn)">${exp}</div>
+        <div class="kpi-sub">à anticiper</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-top"><span class="kpi-label">Chantiers en cours</span><div class="kpi-ic" style="background:var(--obl-bg);color:var(--obl)">🏗️</div></div>
+        <div class="kpi-val">${CHANTIERS.filter(c=>c.status==='en_cours').length}</div>
+        <div class="kpi-sub">${CHANTIERS.filter(c=>c.status==='appel_offres').length} en appel d'offres</div>
+      </div>
+    `;
+  }
+
+  // Side widgets
+  const chList = $('#dash-chantiers');
+  if(chList){
+    chList.innerHTML = CHANTIERS.filter(c=>c.status==='en_cours').map(c=>`
+      <div class="alert-item" style="cursor:pointer" onclick="openChantierModal('${c.id}')">
+        <div class="mini-ring" style="width:42px;height:42px">${ring(c.conformity,42,5,'#eef2f7',ringColor(c.conformity))}<div class="v" style="color:${ringColor(c.conformity)}">${c.conformity}</div></div>
+        <div class="alert-body">
+          <div class="alert-title">${c.name}</div>
+          <div class="alert-meta"><span>${c.client}</span><span>•</span><span>${c.progress}% avancé</span></div>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function renderDocs(){
+  const wrap = $('#docs-container');
+  if(!wrap) return;
+  wrap.innerHTML = DOC_CATEGORIES.map((cat, ci)=>{
+    const okCount = cat.docs.filter(d=>d.status==='ok').length;
+    const expCount = cat.docs.filter(d=>d.status==='expire').length;
+    const missCount = cat.docs.filter(d=>d.status==='manquant').length;
+    return `<div class="doc-cat ${ci<2?'open':''}" id="cat-${cat.id}">
+      <div class="doc-cat-head" onclick="document.getElementById('cat-${cat.id}').classList.toggle('open')">
+        <div class="doc-cat-ic" style="background:${cat.color}22;color:${cat.color}">${cat.icon}</div>
+        <div>
+          <div class="doc-cat-title">${cat.name}</div>
+          <div class="doc-cat-sub">${cat.docs.length} document${cat.docs.length>1?'s':''}</div>
+        </div>
+        <div class="doc-cat-stats">
+          ${okCount>0?`<span class="tag tag-ok">${okCount} valides</span>`:''}
+          ${expCount>0?`<span class="tag tag-warn">${expCount} expirent</span>`:''}
+          ${missCount>0?`<span class="tag tag-crit">${missCount} manquants</span>`:''}
+          <span class="chev">▶</span>
+        </div>
+      </div>
+      <div class="doc-cat-body">
+        ${cat.docs.map(d=>`
+          <div class="doc-row">
+            ${statusIcon(d.status)}
+            <div class="doc-name">
+              ${d.name}
+              <div class="sub">${d.sub||''}</div>
+            </div>
+            ${critTag(d.crit)}
+            <div class="doc-date">
+              ${d.expiry?`<div class="lbl">Expire le</div><div style="color:${d.daysLeft && d.daysLeft<=30?'var(--crit)':d.daysLeft && d.daysLeft<=60?'var(--warn)':'inherit'}">${fmtDate(d.expiry)}</div>`:
+                d.lastUpdate?`<div class="lbl">Mis à jour</div><div>${fmtDate(d.lastUpdate)}</div>`:
+                `<div class="lbl">—</div><div style="color:var(--crit)">À fournir</div>`}
+            </div>
+            <div class="doc-actions">
+              ${d.status==='ok'?
+                `<button class="icon-btn" title="Visualiser" data-view-doc="${d.id}" data-view-kind="documents">👁</button>
+                 <button class="icon-btn" title="Télécharger" data-dl-doc="${d.id}" data-dl-kind="documents" data-dl-name="${(d.name||'document').replace(/"/g,'')}">⤓</button>
+                 <button class="icon-btn" title="Remplacer le fichier" data-deposit="${d.id}">⤴</button>`:
+                `<button class="btn btn-sm btn-primary" data-deposit="${d.id}">⤴ Déposer</button>`}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderScorePassport(){
+  const sc = computeScore();
+  const ax = $('#passport-axes');
+  if(!ax) return;
+
+  const seal = $('#passport-seal');
+  seal.innerHTML = `<div class="n">${sc.global}</div><div class="l">/ 100</div>`;
+  $('#passport-grade-val').textContent = sc.grade;
+  $('#passport-naf').textContent = `${STATE.company.naf} — ${sc.naf}`;
+  $('#passport-co-name').textContent = STATE.company.name;
+
+  const labels = { identite:{name:'Identité de l\'entreprise', ic:'🏛️', col:'#7b74d9'}, social:{name:'Obligations sociales', ic:'👥', col:'#e09a42'}, fiscal:{name:'Obligations fiscales', ic:'💶', col:'#4dbe98'}, assur:{name:'Assurances', ic:'🛡️', col:'#1f6feb'}, secu:{name:'Sécurité chantier', ic:'🦺', col:'#d63b3b'}, qual:{name:'Qualifications', ic:'🏅', col:'#0fb5a0'} };
+  ax.innerHTML = Object.entries(sc.axes).map(([k,v])=>{
+    const l = labels[k]||{};
+    return `<div class="passport-axis">
+      <div class="passport-axis-ic" style="background:${l.col}22;color:${l.col}">${l.ic}</div>
+      <div class="passport-axis-body">
+        <div class="passport-axis-name"><span>${l.name}</span><strong style="color:${ringColor(v)}">${v}%</strong></div>
+        <div class="passport-axis-track"><div class="passport-axis-fill" style="width:${v}%;background:${ringColor(v)}"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderSalaries(){
+  const tb = $('#emp-tbody');
+  if(!tb) return;
+  tb.innerHTML = EMPLOYEES.map(e=>{
+    const init = e.name.split(' ').map(n=>n[0]).join('');
+    return `<tr style="cursor:pointer" onclick="openEmployeeModal('${e.id}')">
+      <td><div class="co-cell"><div class="co-av">${init}</div><div><div style="font-weight:600">${e.name}</div><div style="font-size:12px;color:var(--ink3)">${e.role}</div></div></div></td>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="mini-ring" style="width:36px;height:36px">${ring(e.conformity,36,4,'#eef2f7',ringColor(e.conformity))}<div class="v">${e.conformity}</div></div>
+          <span style="font-weight:600;color:${ringColor(e.conformity)}">${e.conformity}%</span>
+        </div>
+      </td>
+      <td>${e.missing===0?'<span class="tag tag-ok">Complet</span>':`<span class="tag tag-warn">${e.missing} doc(s)</span>`}</td>
+      <td style="font-size:12.5px;color:var(--ink2)">${e.alerts || '<span style="color:var(--ink3)">Aucune</span>'}</td>
+      <td><button class="btn btn-sm btn-outline" onclick="event.stopPropagation();openEmployeeModal('${e.id}')">Voir dossier →</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderChantiers(filter){
+  const wrap = $('#chantier-grid');
+  if(!wrap) return;
+  const list = filter && filter!=='all' ? CHANTIERS.filter(c=>c.status===filter) : CHANTIERS;
+  if(list.length===0){
+    wrap.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="empty-ic">🏗️</div>Aucun chantier dans cette catégorie</div>';
+    return;
+  }
+  wrap.innerHTML = list.map(c=>{
+    let stPill='';
+    if(c.status==='en_cours')      stPill = `<span class="pill-status" style="background:var(--obl-bg);color:var(--obl)"><span class="dot" style="background:var(--obl)"></span>En cours</span>`;
+    else if(c.status==='appel_offres') stPill = `<span class="pill-status" style="background:var(--warn-bg);color:var(--warn)"><span class="dot" style="background:var(--warn)"></span>Appel d'offres</span>`;
+    else if(c.status==='termine')      stPill = `<span class="pill-status" style="background:var(--ok-bg);color:var(--ok)"><span class="dot" style="background:var(--ok)"></span>Terminé</span>`;
+    return `<div class="chantier-card" onclick="openChantierModal('${c.id}')">
+      <div class="cc-head">
+        <div>
+          <div class="cc-name">${c.name}</div>
+          <div class="cc-client">${c.client} • ${c.location}</div>
+        </div>
+        <div class="mini-ring" style="width:50px;height:50px">${ring(c.conformity,50,6,'#eef2f7',ringColor(c.conformity))}<div class="v" style="color:${ringColor(c.conformity)};font-size:12px">${c.conformity}</div></div>
+      </div>
+      <div>${stPill}</div>
+      <div class="cc-meta">
+        <div class="cc-meta-item"><div class="lbl">Montant</div><div class="val">${c.montant}</div></div>
+        <div class="cc-meta-item"><div class="lbl">Début</div><div class="val">${fmtDate(c.dateDebut)}</div></div>
+        <div class="cc-meta-item"><div class="lbl">Fin prévue</div><div class="val">${fmtDate(c.dateFin)}</div></div>
+      </div>
+      ${c.status==='en_cours'?`<div class="cc-progress">
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--ink3)">Avancement</span><strong>${c.progress}%</strong></div>
+        <div class="cc-prog-track"><div class="cc-prog-fill" style="width:${c.progress}%;background:var(--brand)"></div></div>
+      </div>`:''}
+      ${c.status==='termine' && c.rgDate?`<div class="alert-item obl" style="margin:12px 0 0;padding:10px 12px;border-left-width:3px"><div style="font-size:12px"><strong>💰 RG à récupérer</strong> — ${fmtDate(c.rgDate)}</div></div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function filterChantiers(filter, btn){
+  $$('.filter-chantier').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderChantiers(filter);
+}
+
+function renderST(){
+  const tb = $('#st-tbody');
+  if(!tb) return;
+  tb.innerHTML = SUBCONTRACTORS.map(s=>{
+    const init = s.name.split(' ').map(w=>w[0]).slice(0,2).join('');
+    let stTag;
+    if(s.status==='valide')      stTag = `<span class="pill-status" style="background:var(--ok-bg);color:var(--ok)"><span class="dot" style="background:var(--ok)"></span>Validé</span>`;
+    else if(s.status==='a_verifier') stTag = `<span class="pill-status" style="background:var(--warn-bg);color:var(--warn)"><span class="dot" style="background:var(--warn)"></span>À vérifier</span>`;
+    else                             stTag = `<span class="pill-status" style="background:var(--crit-bg);color:var(--crit)"><span class="dot" style="background:var(--crit)"></span>En attente docs</span>`;
+    return `<tr style="cursor:pointer" onclick="openSTModal('${s.id}')">
+      <td><div class="co-cell"><div class="co-av">${init}</div><div><div style="font-weight:600">${s.name}</div><div style="font-size:12px;color:var(--ink3)">SIRET ${s.siret}</div></div></div></td>
+      <td>${stTag}</td>
+      <td><div style="display:flex;align-items:center;gap:10px"><div style="font-weight:600">${s.docs}/${s.total}</div><div style="flex:1;max-width:100px;height:5px;background:var(--bg);border-radius:3px;overflow:hidden"><div style="width:${s.docs/s.total*100}%;height:100%;background:${s.docs===s.total?'var(--ok)':'var(--warn)'}"></div></div></div></td>
+      <td style="font-size:12.5px">${s.validDate?fmtDate(s.validDate):'<span style="color:var(--ink3)">—</span>'}</td>
+      <td>
+        <div style="display:flex;gap:6px" onclick="event.stopPropagation()">
+          ${s.status==='attente'?'<button class="btn btn-sm btn-primary" onclick="openShareModal()">📩 Relancer</button>':'<button class="btn btn-sm btn-outline" onclick="openSTModal(\''+s.id+'\')">Voir dossier</button>'}
+          ${s.docs===s.total?'<button class="btn btn-sm btn-ok" onclick="openReceiptModal(\''+s.name+'\')">📑 Générer reçu</button>':''}
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderRisques(){
+  const wrap = $('#risk-list');
+  if(!wrap) return;
+  wrap.innerHTML = RISKS.map(r=>{
+    const sevColor = {high:'var(--crit)', medium:'var(--warn)', low:'var(--ok)'}[r.sev];
+    const sevBg    = {high:'var(--crit-bg)', medium:'var(--warn-bg)', low:'var(--ok-bg)'}[r.sev];
+    return `<div class="risk-item" style="cursor:pointer" onclick="openRiskModal('${r.id}')">
+      <div class="risk-sev" style="background:${sevColor}"></div>
+      <div class="risk-body">
+        <div class="risk-head">
+          <span class="risk-cat" style="background:${sevBg};color:${sevColor}">${r.cat}</span>
+          <span class="risk-ref">${r.ref}</span>
+          <span style="margin-left:auto;font-size:11px;color:var(--ink3)">👁 Cliquer pour détail</span>
+        </div>
+        <div class="risk-desc">${r.desc}</div>
+        <div class="risk-detail">${r.detail}</div>
+        <div class="risk-actions" onclick="event.stopPropagation()">
+          ${r.actions.map(a=>`<button class="btn btn-sm btn-outline" onclick="toast('Action ajoutée : ${a}','✓')">⚡ ${a}</button>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderDOE(){
+  const kpiWrap = $('#doe-kpis');
+  const wrap = $('#doe-chantiers');
+  if(!wrap) return;
+
+  const totProd = DOE.reduce((s,c)=>s+c.produits.length,0);
+  const totPieces = DOE.reduce((s,c)=>s+c.produits.length*DOE_DOCS.length,0);
+  const okPieces = DOE.reduce((s,c)=>s+c.produits.flatMap(p=>DOE_DOCS.map(d=>p.docs[d.id])).filter(x=>x==='ok').length,0);
+  const globalPct = Math.round(okPieces/totPieces*100);
+  const aTransmettre = DOE.filter(c=>c.statut==='a_transmettre').length;
+  const manquants = totPieces - okPieces;
+
+  if(kpiWrap){
+    kpiWrap.innerHTML = `
+      <div class="kpi"><div class="kpi-top"><span class="kpi-label">Complétude DOE</span><span class="kpi-ic" style="background:var(--ok-bg);color:var(--ok)">📘</span></div><div class="kpi-val" style="color:${ringColor(globalPct)}">${globalPct}%</div><div class="kpi-sub">${okPieces}/${totPieces} pièces</div></div>
+      <div class="kpi"><div class="kpi-top"><span class="kpi-label">Produits suivis</span><span class="kpi-ic" style="background:var(--obl-bg);color:var(--obl)">📦</span></div><div class="kpi-val">${totProd}</div><div class="kpi-sub">sur ${DOE.length} chantiers</div></div>
+      <div class="kpi"><div class="kpi-top"><span class="kpi-label">Pièces manquantes</span><span class="kpi-ic" style="background:var(--crit-bg);color:var(--crit)">⚠️</span></div><div class="kpi-val" style="color:var(--crit)">${manquants}</div><div class="kpi-sub">à collecter</div></div>
+      <div class="kpi"><div class="kpi-top"><span class="kpi-label">DOE à transmettre</span><span class="kpi-ic" style="background:var(--warn-bg);color:var(--warn)">📤</span></div><div class="kpi-val" style="color:var(--warn)">${aTransmettre}</div><div class="kpi-sub">prêts pour MOA</div></div>`;
+  }
+
+  wrap.innerHTML = DOE.map(c=>{
+    const pct = doeChantierPct(c);
+    let stPill;
+    if(c.statut==='a_transmettre') stPill = `<span class="pill-status" style="background:var(--warn-bg);color:var(--warn)"><span class="dot" style="background:var(--warn)"></span>À transmettre au MOA</span>`;
+    else stPill = `<span class="pill-status" style="background:var(--obl-bg);color:var(--obl)"><span class="dot" style="background:var(--obl)"></span>Collecte en cours</span>`;
+    const rows = c.produits.map(p=>{
+      const pPct = doeProduitPct(p);
+      const chips = DOE_DOCS.map(d=>{
+        const st = p.docs[d.id];
+        const col = st==='ok' ? 'var(--ok)' : 'var(--crit)';
+        const bg  = st==='ok' ? 'var(--ok-bg)' : 'var(--crit-bg)';
+        const mark = st==='ok' ? '✓' : '✕';
+        return `<span class="tag" style="background:${bg};color:${col}" title="${d.label} — ${d.sub}">${mark} ${d.label}</span>`;
+      }).join('');
+      return `<tr>
+        <td><div style="font-weight:600">${p.name}</div><div style="font-size:12px;color:var(--ink3)">${p.fabricant} • réf. ${p.ref} • ${p.qte}</div><div style="font-size:11px;color:var(--ink3);margin-top:2px">📍 ${p.zone}</div></td>
+        <td style="min-width:280px"><div style="display:flex;flex-wrap:wrap;gap:5px">${chips}</div></td>
+        <td><div class="mini-ring" style="width:42px;height:42px">${ring(pPct,42,5,'#eef2f7',ringColor(pPct))}<div class="v" style="color:${ringColor(pPct)};font-size:10px">${pPct}</div></div></td>
+      </tr>`;
+    }).join('');
+    return `<div class="card" style="margin-bottom:18px">
+      <div style="padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <div class="mini-ring" style="width:52px;height:52px">${ring(pct,52,6,'#eef2f7',ringColor(pct))}<div class="v" style="color:${ringColor(pct)};font-size:12px">${pct}</div></div>
+        <div style="flex:1;min-width:200px">
+          <div style="font-weight:700;font-size:15px">${c.chantierName}</div>
+          <div style="font-size:12.5px;color:var(--ink3)">Maître d'ouvrage : ${c.moa} • Réception ${fmtDate(c.reception)}</div>
+        </div>
+        ${stPill}
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-sm btn-outline" onclick="openScanModal()">📷 Scanner</button>
+          ${pct===100
+            ? `<button class="btn btn-sm btn-ok" onclick="openDoeTransmitModal('${c.chantierId}')">📤 Transmettre le DOE</button>`
+            : `<button class="btn btn-sm btn-primary" onclick="toast('Relance fabricants pour pièces manquantes','📩')">📩 Relancer fabricants</button>`}
+        </div>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Produit posé</th><th>Passeport &amp; pièces (DPP / EPD / DoP / CE / Notice)</th><th>Complét.</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  }).join('');
+}
+
+function openScanModal(){
+  openModal(`
+    <div class="modal-head"><h3>📷 Scanner un passeport produit</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div style="text-align:center;padding:30px;border:2px dashed var(--line2);border-radius:14px;margin-bottom:18px">
+        <div style="font-size:42px;margin-bottom:10px">📱</div>
+        <div style="font-weight:600;margin-bottom:6px">Scannez le QR code du produit posé</div>
+        <div style="font-size:13px;color:var(--ink2)">Sylanty récupère automatiquement le passeport DPP via le registre européen et préremplit la fiche.</div>
+      </div>
+      <div style="text-align:center;color:var(--ink3);font-size:12px;margin-bottom:14px">— ou —</div>
+      <div class="field"><label>Référence produit / fabricant</label><input type="text" placeholder="ex. Schneider LVSPGX42"></div>
+      <div class="field-row">
+        <div class="field"><label>Chantier</label><select>${DOE.map(c=>`<option>${c.chantierName}</option>`).join('')}</select></div>
+        <div class="field"><label>Quantité posée</label><input type="text" placeholder="ex. 6 u."></div>
+      </div>
+      <div class="naf-preview">📘 <strong>Pourquoi c'est utile :</strong> à la réception, votre maître d'ouvrage exige un DOE complet. Le CPR (EU 2024/3110) y ajoute les passeports produits — Sylanty les centralise et conserve l'accès 25 ans.</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" onclick="closeModal();toast('Produit ajouté au DOE','📦')">Ajouter au DOE</button>
+    </div>
+  `);
+}
+
+function openDoeTransmitModal(chId){
+  const c = DOE.find(x=>x.chantierId===chId);
+  if(!c) return;
+  openModal(`
+    <div class="modal-head"><h3>📤 Transmettre le DOE — ${c.chantierName}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="alert-item obl" style="margin-bottom:16px"><div class="alert-ic" style="background:var(--ok-bg);color:var(--ok)">✓</div><div class="alert-body"><div class="alert-title">DOE complet à 100%</div><div class="alert-meta">${c.produits.length} produits • ${c.produits.length*DOE_DOCS.length} pièces vérifiées</div></div></div>
+      <div class="field"><label>Destinataire (maître d'ouvrage)</label><input type="text" value="${c.moa}"></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="contact@${c.moa.toLowerCase().replace(/[^a-z]/g,'')}.fr"></div>
+      <div class="naf-preview">🔗 Un lien sécurisé sera généré (comme vos partages CSPS/MOE). Le MOA accède au DOE numérique, télécharge les passeports, et l'accès reste actif 25 ans conformément au CPR.</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-ok" onclick="closeModal();toast('DOE transmis au maître d\\'ouvrage','📤')">Générer le lien &amp; transmettre</button>
+    </div>
+  `);
+}
+
+function renderPartage(){
+  const wrap = $('#share-list');
+  if(!wrap) return;
+  const shares = [
+    { recipient:'Cabinet Veritas (CSPS)', chantier:'Hôpital Saint-Joseph', docs:7, status:'consulte', date:'2026-05-22', expires:'2026-06-22' },
+    { recipient:'AP-HP Lyon (MOE)',       chantier:'Hôpital Saint-Joseph', docs:5, status:'valide',   date:'2026-05-20', expires:'2026-07-15' },
+    { recipient:'Bureau Apave (CT)',      chantier:'Lycée Carnot',         docs:6, status:'attente',  date:'2026-05-25', expires:'2026-06-10' },
+  ];
+  wrap.innerHTML = shares.map(s=>{
+    const pill = s.status==='valide' ? `<span class="pill-status" style="background:var(--ok-bg);color:var(--ok)"><span class="dot" style="background:var(--ok)"></span>Validé</span>`
+              : s.status==='consulte' ? `<span class="pill-status" style="background:var(--obl-bg);color:var(--obl)"><span class="dot" style="background:var(--obl)"></span>Consulté</span>`
+              : `<span class="pill-status" style="background:var(--warn-bg);color:var(--warn)"><span class="dot" style="background:var(--warn)"></span>En attente</span>`;
+    return `<tr style="cursor:pointer" onclick="openShareHistoryModal('${s.recipient.replace(/'/g,"\\'")}')">
+      <td><strong>${s.recipient}</strong></td>
+      <td style="color:var(--ink2)">${s.chantier}</td>
+      <td>${s.docs} document${s.docs>1?'s':''}</td>
+      <td>${pill}</td>
+      <td style="font-size:12px;color:var(--ink3)">Expire le ${fmtDate(s.expires)}</td>
+      <td><button class="btn btn-sm btn-outline" onclick="event.stopPropagation();openShareHistoryModal('${s.recipient.replace(/'/g,"\\'")}')">Voir historique →</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderRoles(){
+  const wrap = $('#roles-grid');
+  if(!wrap) return;
+  wrap.innerHTML = ROLES.map((r,i)=>`
+    <div class="role-card ${i===1?'sel':''}">
+      <div class="role-ic" style="background:${r.color}22;color:${r.color}">${r.icon}</div>
+      <div class="role-name">${r.name}</div>
+      <div class="role-desc">${r.desc}</div>
+      <div class="role-perms">${r.perms.map(p=>`<span class="role-perm">${p}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+
+// ── Notif panel ────────────────────────────────────────────────────
+function renderNotifPanel(){
+  const list = $('#notif-list');
+  if(!list) return;
+  list.innerHTML = NOTIFICATIONS.map(n=>`
+    <div class="notif-item">
+      <div class="notif-dot" style="background:${n.type==='crit'?'var(--crit)':n.type==='warn'?'var(--warn)':n.type==='obl'?'var(--obl)':'var(--ok)'}"></div>
+      <div>
+        <div class="notif-text">${n.text}</div>
+        <div class="notif-time">${n.time}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ════════════════════════════════════════════════════════════════════
+// MODALS
+// ════════════════════════════════════════════════════════════════════
+
+function openChantierModal(id){
+  const c = CHANTIERS.find(x=>x.id===id);
+  if(!c) return;
+
+  let stepHTML = '';
+  if(c.status==='appel_offres'){
+    const steps = [['done','Création'],['active','Constituer dossier'],['','Validation MOE'],['','Démarrage']];
+    stepHTML = `<div class="proc-steps">${steps.map((s,i)=>`<div class="proc-step ${s[0]}"><div class="proc-dot">${i+1}</div><div class="lab">${s[1]}</div></div>`).join('')}</div>`;
+  } else if(c.status==='en_cours'){
+    const steps = [['done','Création'],['done','Dossier validé'],['active','Chantier en cours'],['','Réception & RG']];
+    stepHTML = `<div class="proc-steps">${steps.map((s,i)=>`<div class="proc-step ${s[0]}"><div class="proc-dot">${i+1}</div><div class="lab">${s[1]}</div></div>`).join('')}</div>`;
+  } else {
+    const steps = [['done','Création'],['done','Dossier validé'],['done','Chantier réalisé'],['active','RG en cours']];
+    stepHTML = `<div class="proc-steps">${steps.map((s,i)=>`<div class="proc-step ${s[0]}"><div class="proc-dot">${i+1}</div><div class="lab">${s[1]}</div></div>`).join('')}</div>`;
+  }
+
+  let blockBanner = '';
+  if(c.status==='appel_offres' && c.conformity < 70){
+    blockBanner = `<div class="block-banner danger"><div class="block-banner-ic" style="background:#fff;color:var(--crit)">🚫</div><div class="block-banner-body"><div class="block-banner-title">Risque de blocage du démarrage</div><div class="block-banner-text">Score de conformité ${c.conformity}% — sous le seuil de 70% requis. Constituez le dossier complet avant de démarrer.</div></div></div>`;
+  } else if(c.status==='en_cours' && c.conformity < 70){
+    blockBanner = `<div class="block-banner warn"><div class="block-banner-ic" style="background:#fff;color:var(--warn)">⚠️</div><div class="block-banner-body"><div class="block-banner-title">Risque d'arrêt de chantier</div><div class="block-banner-text">Score de conformité ${c.conformity}% — sous le seuil de 70%. Régularisez les documents au plus vite.</div></div></div>`;
+  } else if(c.conformity >= 90){
+    blockBanner = `<div class="block-banner ok"><div class="block-banner-ic" style="background:#fff;color:var(--ok)">✓</div><div class="block-banner-body"><div class="block-banner-title">Conformité excellente</div><div class="block-banner-text">Score ${c.conformity}% — vous pouvez démarrer ou poursuivre sereinement.</div></div></div>`;
+  }
+
+  const ao_docs = c.status==='appel_offres' ? `
+    <h4 style="font-size:14px;margin:18px 0 12px">📑 Dossier appel d'offres</h4>
+    <div style="border:1px solid var(--line);border-radius:11px;overflow:hidden">
+      <div class="doc-row" style="padding:11px 14px"><div class="doc-status-ic" style="background:var(--ok-bg);color:var(--ok);width:26px;height:26px;font-size:12px">✓</div><div class="doc-name" style="font-size:13px">DC1 — Lettre de candidature<div class="sub">Pièce administrative</div></div><span class="tag tag-ok">OK</span></div>
+      <div class="doc-row" style="padding:11px 14px;border-top:1px solid var(--line)"><div class="doc-status-ic" style="background:var(--ok-bg);color:var(--ok);width:26px;height:26px;font-size:12px">✓</div><div class="doc-name" style="font-size:13px">DC2 — Déclaration du candidat<div class="sub">Pièce administrative</div></div><span class="tag tag-ok">OK</span></div>
+      <div class="doc-row" style="padding:11px 14px;border-top:1px solid var(--line)"><div class="doc-status-ic" style="background:var(--warn-bg);color:var(--warn);width:26px;height:26px;font-size:12px">!</div><div class="doc-name" style="font-size:13px">Mémoire technique<div class="sub">Organisation chantier + moyens humains</div></div><button class="btn btn-sm btn-primary">⚡ Compléter</button></div>
+      <div class="doc-row" style="padding:11px 14px;border-top:1px solid var(--line)"><div class="doc-status-ic" style="background:var(--crit-bg);color:var(--crit);width:26px;height:26px;font-size:12px">✕</div><div class="doc-name" style="font-size:13px">DPGF — Décomposition Prix<div class="sub">Pièce financière</div></div><button class="btn btn-sm btn-danger">⚡ Déposer</button></div>
+      <div class="doc-row" style="padding:11px 14px;border-top:1px solid var(--line)"><div class="doc-status-ic" style="background:var(--crit-bg);color:var(--crit);width:26px;height:26px;font-size:12px">✕</div><div class="doc-name" style="font-size:13px">Acte d'Engagement<div class="sub">Pièce financière</div></div><button class="btn btn-sm btn-danger">⚡ Déposer</button></div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:10px"><button class="btn btn-md btn-outline">🔴 3 documents manquants</button><button class="btn btn-md btn-ok" onclick="closeModal();openReceiptModal('Dossier appel d\\'offres - ${c.name}')">📑 Générer reçu de clôture</button></div>
+  `: '';
+
+  const en_cours_actions = c.status==='en_cours' ? `
+    <div class="grid-2" style="margin-top:18px">
+      <button class="btn btn-md btn-primary" onclick="closeModal();navTo('chantier-risques')">🔍 Analyser risques CCTP/CCAP</button>
+      <button class="btn btn-md btn-outline">📅 Synchroniser planning</button>
+      <button class="btn btn-md btn-outline">🤝 Voir sous-traitants</button>
+      <button class="btn btn-md btn-outline" onclick="openShareModal()">🦺 Partager avec CSPS</button>
+    </div>
+  `: '';
+
+  const fin_actions = c.status==='termine' ? `
+    <h4 style="font-size:14px;margin:18px 0 12px">💰 Retenue de garantie</h4>
+    <div class="alert-item obl" style="margin-bottom:0"><div class="alert-ic" style="background:var(--obl-bg);color:var(--obl)">💰</div><div class="alert-body"><div class="alert-title">RG à récupérer le ${fmtDate(c.rgDate)}</div><div class="alert-meta">Relance automatique à J-30 et J-7</div></div><button class="btn btn-sm btn-primary">📩 Préparer relance</button></div>
+  `: '';
+
+  openModal(`
+    <div class="modal-head">
+      <div>
+        <h3>${c.name}</h3>
+        <div style="font-size:13px;color:var(--ink3);margin-top:3px">${c.client} • ${c.location} • ${c.montant}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      ${stepHTML}
+      ${blockBanner}
+      <div class="grid-3" style="margin-top:14px">
+        <div class="kpi"><div class="kpi-label">Conformité</div><div class="kpi-val" style="color:${ringColor(c.conformity)}">${c.conformity}%</div></div>
+        <div class="kpi"><div class="kpi-label">Avancement</div><div class="kpi-val">${c.progress}%</div></div>
+        <div class="kpi"><div class="kpi-label">Date fin</div><div class="kpi-val" style="font-size:18px">${fmtDate(c.dateFin)}</div></div>
+      </div>
+      ${ao_docs}
+      ${en_cours_actions}
+      ${fin_actions}
+    </div>
+  `, true);
+}
+
+function openShareModal(){
+  const url = 'https://sylanty.app/share/' + Math.random().toString(36).substring(2,12);
+  openModal(`
+    <div class="modal-head"><h3>🤝 Créer un lien de partage sécurisé</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Destinataire</label><input type="email" placeholder="csps@cabinet-veritas.fr"></div>
+      <div class="field"><label>Rôle</label><select><option>CSPS — Coordonnateur Sécurité</option><option>MOE — Maîtrise d'œuvre</option><option>Client / Donneur d'ordre</option><option>Bureau de contrôle</option></select></div>
+      <div class="field"><label>Documents à partager</label>
+        <div style="border:1px solid var(--line);border-radius:11px;padding:12px;max-height:200px;overflow:auto">
+          <label style="display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px"><input type="checkbox" checked> Kbis</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px"><input type="checkbox" checked> Attestation URSSAF</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px"><input type="checkbox" checked> Assurance décennale</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px"><input type="checkbox" checked> RC Pro</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px"><input type="checkbox"> PPSPS</label>
+          <label style="display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px"><input type="checkbox"> DUERP</label>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Expiration du lien</label><select><option>7 jours</option><option>30 jours</option><option>3 mois</option></select></div>
+        <div class="field"><label>Permissions</label><select><option>Voir uniquement</option><option>Voir + télécharger</option><option>Voir + valider/refuser</option></select></div>
+      </div>
+      <div class="share-link-box"><span style="font-size:18px">🔗</span><div class="url">${url}</div><button class="btn btn-sm btn-outline" onclick="navigator.clipboard&&navigator.clipboard.writeText('${url}');toast('Lien copié','📋')">Copier</button></div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button><button class="btn btn-md btn-primary" onclick="closeModal();toast('Lien partagé par email','📨')">Envoyer par email</button></div>
+  `, true);
+}
+
+function openReceiptModal(name){
+  openModal(`
+    <div class="modal-head"><h3>📑 Générer reçu de clôture</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <p style="color:var(--ink2);margin-bottom:16px">Récapitulatif des documents validés pour <strong>${name}</strong></p>
+      <div class="passport" style="margin-bottom:0">
+        <div class="passport-head" style="padding:20px 24px">
+          <div class="passport-seal" style="width:64px;height:64px"><div class="n" style="font-size:18px">✓</div><div class="l">VALIDÉ</div></div>
+          <div class="passport-info"><h2 style="font-size:17px">Reçu n° SYL-${new Date().getFullYear()}-${Math.floor(Math.random()*9000+1000)}</h2><div class="meta">Émis le <span id="passport-date"></span></div></div>
+        </div>
+        <div class="passport-body" style="padding:20px 24px">
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+            <div style="display:flex;justify-content:space-between"><span>✓ Kbis</span><span style="color:var(--ok)">Valide</span></div>
+            <div style="display:flex;justify-content:space-between"><span>✓ Attestation URSSAF</span><span style="color:var(--ok)">Valide</span></div>
+            <div style="display:flex;justify-content:space-between"><span>✓ Attestation fiscale</span><span style="color:var(--ok)">Valide</span></div>
+            <div style="display:flex;justify-content:space-between"><span>✓ RC Pro + Décennale</span><span style="color:var(--ok)">Valide</span></div>
+            <div style="display:flex;justify-content:space-between"><span>✓ RIB</span><span style="color:var(--ok)">Valide</span></div>
+            <div style="display:flex;justify-content:space-between"><span>✓ Contrat de sous-traitance</span><span style="color:var(--ok)">Signé</span></div>
+            <div style="display:flex;justify-content:space-between"><span>✓ Acte spécial de sous-traitance</span><span style="color:var(--ok)">Signé</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-md btn-outline" onclick="closeModal()">Fermer</button><button class="btn btn-md btn-primary" onclick="closeModal();toast('Reçu téléchargé','⤓')">⤓ Télécharger PDF</button></div>
+  `);
+}
+
+function openPdfPreview(name){
+  openModal(`
+    <div class="modal-head"><h3>📄 ${name}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body" style="padding:0">
+      <div style="background:#3a3a3a;padding:40px;text-align:center;color:#fff">
+        <div style="background:#fff;color:#111;max-width:420px;margin:0 auto;padding:40px 30px;box-shadow:0 4px 20px rgba(0,0,0,.3);text-align:left;font-family:'Sora'">
+          <div style="font-size:11px;color:#888;margin-bottom:6px">DOCUMENT NUMÉRISÉ</div>
+          <h4 style="font-size:18px;margin-bottom:18px">${name}</h4>
+          <div style="background:var(--ok-bg);border-radius:8px;padding:10px;color:var(--ok);font-size:13px;font-weight:600;margin-bottom:18px">✓ Lisibilité IA : 98% — Document conforme</div>
+          <div style="font-size:13px;color:#333;line-height:1.7">
+            <p>Document généré automatiquement après analyse OCR/IA.</p>
+            <p>Type : ${name}</p>
+            <p>Validité confirmée par le système Sylanty.</p>
+            <p style="margin-top:16px;color:#888;font-size:11px">— Aperçu maquette —</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-md btn-outline" onclick="closeModal()">Fermer</button><button class="btn btn-md btn-primary">⤓ Télécharger</button></div>
+  `, true);
+}
+
+// ── Employee detail modal ─────────────────────────────────────────
+function openEmployeeModal(id){
+  const e = EMPLOYEES.find(x=>x.id===id);
+  if(!e) return;
+  const init = e.name.split(' ').map(n=>n[0]).join('');
+  const byCategory = {};
+  e.docs.forEach(d=>{ (byCategory[d.cat] = byCategory[d.cat]||[]).push(d); });
+  const catIcons = { 'Identité':'🪪', 'BTP':'🦺', 'Formation':'🎓', 'Suivi':'📋' };
+  const catColors = { 'Identité':'#7b74d9', 'BTP':'#d63b3b', 'Formation':'#e0a829', 'Suivi':'#0fb5a0' };
+
+  const chList = (e.chantiers||[]).map(cid=>CHANTIERS.find(c=>c.id===cid)).filter(Boolean);
+
+  openModal(`
+    <div class="modal-head">
+      <div style="display:flex;align-items:center;gap:14px;flex:1">
+        <div class="co-av" style="width:48px;height:48px;font-size:18px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--teal));color:#fff">${init}</div>
+        <div style="flex:1">
+          <h3>${e.name}</h3>
+          <div style="font-size:13px;color:var(--ink3);margin-top:2px">${e.role} • ${e.contact.email} • ${e.contact.phone}</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="grid-3" style="margin-bottom:20px">
+        <div class="kpi"><div class="kpi-label">Conformité salarié</div><div class="kpi-val" style="color:${ringColor(e.conformity)}">${e.conformity}%</div><div class="kpi-sub">${e.missing===0?'Dossier complet':e.missing+' document(s) à compléter'}</div></div>
+        <div class="kpi"><div class="kpi-label">Embauché le</div><div class="kpi-val" style="font-size:18px">${fmtDate(e.contact.start)}</div><div class="kpi-sub">Né le ${fmtDate(e.contact.birth)}</div></div>
+        <div class="kpi"><div class="kpi-label">Chantiers actifs</div><div class="kpi-val">${chList.length}</div><div class="kpi-sub">${chList.map(c=>c.name.split(' ')[0]).join(' · ')||'—'}</div></div>
+      </div>
+
+      ${e.alerts?`<div class="block-banner warn"><div class="block-banner-ic" style="background:#fff;color:var(--warn)">⚠️</div><div class="block-banner-body"><div class="block-banner-title">Alertes en cours</div><div class="block-banner-text">${e.alerts}</div></div></div>`:''}
+
+      ${Object.entries(byCategory).map(([cat,docs])=>`
+        <h4 style="font-size:13px;margin:18px 0 10px;color:${catColors[cat]||'var(--ink2)'};display:flex;align-items:center;gap:8px">
+          <span style="font-size:16px">${catIcons[cat]||'📄'}</span>${cat} <span style="font-size:11px;color:var(--ink3);font-weight:500">— ${docs.length} document${docs.length>1?'s':''}</span>
+        </h4>
+        <div style="border:1px solid var(--line);border-radius:11px;overflow:hidden">
+          ${docs.map(d=>`
+            <div class="doc-row" style="padding:10px 14px${d!==docs[0]?';border-top:1px solid var(--line)':''}">
+              ${statusIcon(d.status).replace('class="doc-status-ic"','class="doc-status-ic" style="width:26px;height:26px;font-size:12px"')}
+              <div class="doc-name" style="font-size:13px">${d.name}</div>
+              <div class="doc-date" style="width:auto;font-size:12px">${d.expiry?`<span style="color:${d.daysLeft && d.daysLeft<=30?'var(--crit)':d.daysLeft && d.daysLeft<=60?'var(--warn)':'var(--ink2)'}">${d.status==='expire'&&d.daysLeft<0?'Expirée':'Expire le'} ${fmtDate(d.expiry)}</span>`:d.lastUpdate?`<span style="color:var(--ink3)">Maj ${fmtDate(d.lastUpdate)}</span>`:'<span style="color:var(--crit)">À fournir</span>'}</div>
+              ${d.status==='ok'?
+                '<button class="icon-btn" title="Visualiser" data-view-doc="'+d.id+'" data-view-kind="employee-docs">👁</button>'+
+                '<button class="icon-btn" title="Télécharger" data-dl-doc="'+d.id+'" data-dl-kind="employee-docs" data-dl-name="'+(d.name||'document').replace(/"/g,'')+'">⤓</button>':
+                '<button class="btn btn-sm btn-primary" data-deposit-emp="'+d.id+'">⤴ Déposer</button>'}
+            </div>
+          `).join('')}
+        </div>
+      `).join('')}
+
+      ${chList.length>0?`
+        <h4 style="font-size:13px;margin:22px 0 10px;color:var(--ink2);display:flex;align-items:center;gap:8px">
+          <span style="font-size:16px">🏗️</span>Chantiers affectés
+        </h4>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${chList.map(c=>`<div class="alert-item" style="margin:0;cursor:pointer" onclick="closeModal();openChantierModal('${c.id}')">
+            <div class="alert-ic" style="background:var(--obl-bg);color:var(--obl)">🏗️</div>
+            <div class="alert-body"><div class="alert-title">${c.name}</div><div class="alert-meta"><span>${c.client}</span><span>•</span><span>${c.status==='en_cours'?'En cours':"Appel d'offres"}</span></div></div>
+            <span style="color:var(--ink3)">→</span>
+          </div>`).join('')}
+        </div>
+      `:''}
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="toast('Email envoyé à ' + '${e.contact.email}','📨')">📨 Contacter</button>
+      <button class="btn btn-md btn-outline" onclick="toast('Documents exportés','📦')">📦 Exporter dossier</button>
+      <button class="btn btn-md btn-primary" onclick="toast('Demande de mise à jour envoyée','✓')">⚡ Demander mise à jour</button>
+    </div>
+  `, true);
+}
+
+// ── Sous-traitant modal ────────────────────────────────────────────
+function openSTModal(id){
+  const s = SUBCONTRACTORS.find(x=>x.id===id);
+  if(!s) return;
+  const init = s.name.split(' ').map(w=>w[0]).slice(0,2).join('');
+  let stTag, stColor, stBg;
+  if(s.status==='valide'){ stTag='✓ Validé'; stColor='var(--ok)'; stBg='var(--ok-bg)'; }
+  else if(s.status==='a_verifier'){ stTag='À vérifier'; stColor='var(--warn)'; stBg='var(--warn-bg)'; }
+  else { stTag='En attente documents'; stColor='var(--crit)'; stBg='var(--crit-bg)'; }
+
+  const steps = [
+    ['done','Création fiche'],
+    [s.docs > 0 ? 'done' : 'active', 'Réception docs'],
+    [s.docs === s.total ? 'done' : (s.status==='a_verifier' ? 'active' : ''),'Vérification'],
+    [s.status==='valide' ? 'done' : '', 'Validation client'],
+  ];
+
+  openModal(`
+    <div class="modal-head">
+      <div style="display:flex;align-items:center;gap:14px;flex:1">
+        <div class="co-av" style="width:48px;height:48px;font-size:16px;border-radius:12px;background:linear-gradient(135deg,#1f6feb,#0fb5a0);color:#fff">${init}</div>
+        <div style="flex:1">
+          <h3>${s.name}</h3>
+          <div style="font-size:13px;color:var(--ink3);margin-top:2px">SIRET ${s.siret} • ${s.contact.email}</div>
+        </div>
+        <span class="pill-status" style="background:${stBg};color:${stColor}"><span class="dot" style="background:${stColor}"></span>${stTag}</span>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="proc-steps">${steps.map((st,i)=>`<div class="proc-step ${st[0]}"><div class="proc-dot">${i+1}</div><div class="lab">${st[1]}</div></div>`).join('')}</div>
+
+      <div class="grid-3" style="margin-bottom:20px">
+        <div class="kpi"><div class="kpi-label">Chantier</div><div class="kpi-val" style="font-size:14px;line-height:1.3">${s.chantier}</div></div>
+        <div class="kpi"><div class="kpi-label">Montant ST</div><div class="kpi-val" style="font-size:22px">${s.montant}</div></div>
+        <div class="kpi"><div class="kpi-label">Documents</div><div class="kpi-val" style="color:${s.docs===s.total?'var(--ok)':'var(--warn)'}">${s.docs}/${s.total}</div></div>
+      </div>
+
+      <h4 style="font-size:13px;margin:18px 0 10px;display:flex;align-items:center;gap:8px"><span style="font-size:16px">📄</span>Pièces du dossier</h4>
+      <div style="border:1px solid var(--line);border-radius:11px;overflow:hidden">
+        ${s.docList.map((d,i)=>`
+          <div class="doc-row" style="padding:11px 14px${i>0?';border-top:1px solid var(--line)':''}">
+            ${statusIcon(d.status).replace('class="doc-status-ic"','class="doc-status-ic" style="width:26px;height:26px;font-size:12px"')}
+            <div class="doc-name" style="font-size:13px">${d.name}${d.alert?'<div class="sub" style="color:var(--crit)">⚠ '+d.alert+'</div>':''}</div>
+            <div class="doc-date" style="width:auto;font-size:12px">${d.date?fmtDate(d.date):'<span style="color:var(--ink3)">—</span>'}</div>
+            ${d.status==='ok'?
+              '<button class="icon-btn" title="Voir" onclick="openPdfPreview(\''+d.name.replace(/'/g,"\\'")+'\')">👁</button>':
+              '<button class="btn btn-sm btn-primary" data-st-validate="'+d.id+'">✓ Valider</button>'}
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="margin-top:18px;padding:14px;background:var(--bg);border-radius:11px;font-size:12.5px;color:var(--ink2)">
+        <strong>📞 Coordonnées</strong><br>
+        ${s.contact.address}<br>
+        ${s.contact.email} • ${s.contact.phone}
+      </div>
+    </div>
+    <div class="modal-foot">
+      ${s.docs<s.total?'<button class="btn btn-md btn-primary" onclick="closeModal();openShareModal()">📨 Demander documents manquants</button>':''}
+      ${s.docs===s.total?'<button class="btn btn-md btn-ok" onclick="closeModal();openReceiptModal(\''+s.name+'\')">📑 Générer reçu de validation</button>':''}
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Fermer</button>
+    </div>
+  `, true);
+}
+
+// ── Risk detail modal ─────────────────────────────────────────────
+function openRiskModal(id){
+  const r = RISKS.find(x=>x.id===id);
+  if(!r) return;
+  const sevColor = {high:'var(--crit)', medium:'var(--warn)', low:'var(--ok)'}[r.sev];
+  const sevBg    = {high:'var(--crit-bg)', medium:'var(--warn-bg)', low:'var(--ok-bg)'}[r.sev];
+  const sevLabel = {high:'CRITIQUE', medium:'MODÉRÉ', low:'FAIBLE'}[r.sev];
+
+  openModal(`
+    <div class="modal-head">
+      <div style="display:flex;align-items:center;gap:12px;flex:1">
+        <div style="width:44px;height:44px;border-radius:11px;background:${sevBg};color:${sevColor};display:flex;align-items:center;justify-content:center;font-size:20px">⚠️</div>
+        <div style="flex:1">
+          <h3>${r.cat}</h3>
+          <div style="font-size:13px;color:var(--ink3);margin-top:2px"><span class="risk-ref">${r.ref}</span> • Hôpital Saint-Joseph</div>
+        </div>
+        <span class="tag" style="background:${sevBg};color:${sevColor}">${sevLabel}</span>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <h4 style="font-size:16px;margin-bottom:12px">${r.desc}</h4>
+      <div class="risk-detail" style="margin-bottom:18px;font-size:13.5px;line-height:1.7">${r.detail}</div>
+
+      <div class="grid-2" style="margin-bottom:20px">
+        <div class="kpi" style="border-left:4px solid ${sevColor}"><div class="kpi-label">💰 Impact financier</div><div class="kpi-val" style="font-size:17px;color:${sevColor}">${r.impact}</div></div>
+        <div class="kpi" style="border-left:4px solid var(--brand)"><div class="kpi-label">📅 Échéance</div><div class="kpi-val" style="font-size:17px">${r.deadline}</div></div>
+      </div>
+
+      <h4 style="font-size:13px;margin-bottom:10px">⚡ Actions recommandées</h4>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        ${r.actions.map(a=>`
+          <div class="alert-item" style="margin:0;cursor:pointer" onclick="toast('Action ajoutée : ${a}','✓')">
+            <div class="alert-ic" style="background:var(--obl-bg);color:var(--obl)">⚡</div>
+            <div class="alert-body"><div class="alert-title">${a}</div><div class="alert-meta">Cliquer pour activer</div></div>
+            <span style="color:var(--ink3)">→</span>
+          </div>
+        `).join('')}
+        <div class="alert-item" style="margin:0;cursor:pointer" onclick="toast('Synchronisation Google Calendar effectuée','📅')">
+          <div class="alert-ic" style="background:var(--ok-bg);color:var(--ok)">📅</div>
+          <div class="alert-body"><div class="alert-title">Synchroniser avec Google Calendar</div><div class="alert-meta">Créer alertes automatiques</div></div>
+          <span style="color:var(--ink3)">→</span>
+        </div>
+        <div class="alert-item" style="margin:0;cursor:pointer" onclick="toast('Équipe chantier notifiée','📨')">
+          <div class="alert-ic" style="background:var(--warn-bg);color:var(--warn)">📨</div>
+          <div class="alert-body"><div class="alert-title">Notifier l'équipe chantier</div><div class="alert-meta">Email + notif push</div></div>
+          <span style="color:var(--ink3)">→</span>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;padding:14px 16px;background:var(--obl-bg);border-radius:11px;font-size:12.5px;color:var(--brand-dk);border-left:3px solid var(--brand)">
+        <strong>💡 Conseil Sylanty :</strong> Ce risque a été identifié par notre IA en analysant les ${r.ref.startsWith('CCAP')?'CCAP':'CCTP'}. Vous pouvez ajouter des actions personnalisées qui seront rappelées aux dates clés.
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Fermer</button>
+      <button class="btn btn-md btn-primary" onclick="closeModal();toast('Toutes les actions activées','✓')">⚡ Activer toutes les actions</button>
+    </div>
+  `, true);
+}
+
+// ── User invite modal ─────────────────────────────────────────────
+function openInviteUserModal(){
+  openModal(`
+    <div class="modal-head"><h3>👤 Inviter un utilisateur</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Nom complet</label><input type="text" placeholder="Prénom Nom"></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="nom@entreprise.fr"></div>
+      <div class="field"><label>Rôle</label>
+        <select>
+          <option>🏢 Admin entreprise</option>
+          <option>🦺 Responsable QSE</option>
+          <option>📋 Chargé d'affaires</option>
+          <option>👤 Collaborateur</option>
+          <option>🤝 Partenaire externe</option>
+        </select>
+      </div>
+      <div style="background:var(--obl-bg);border-radius:11px;padding:14px;font-size:12.5px;color:var(--brand-dk);border-left:3px solid var(--brand)">
+        <strong>💡</strong> L'utilisateur recevra un email avec un lien d'activation. Vous pourrez modifier ses permissions à tout moment.
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" onclick="closeModal();toast('Invitation envoyée','📨')">📨 Envoyer l'invitation</button>
+    </div>
+  `);
+}
+
+// ── New chantier modal ────────────────────────────────────────────
+function openNewChantierModal(){
+  openModal(`
+    <div class="modal-head"><h3>🏗️ Créer un nouveau chantier</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Nom du chantier</label><input type="text" placeholder="Ex : Réhabilitation immeuble Bellevue"></div>
+      <div class="field-row">
+        <div class="field"><label>Client</label><input type="text" placeholder="Maître d'ouvrage"></div>
+        <div class="field"><label>Montant HT</label><input type="text" placeholder="0 €"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Date de début</label><input type="date"></div>
+        <div class="field"><label>Date de fin</label><input type="date"></div>
+      </div>
+      <div class="field"><label>Statut initial</label>
+        <select>
+          <option>📑 Appel d'offres — Constituer le dossier</option>
+          <option>🏗️ En cours — Démarrage immédiat</option>
+        </select>
+      </div>
+      <div class="field"><label>Adresse</label><input type="text" placeholder="Adresse du chantier"></div>
+      <div style="background:var(--warn-bg);border-radius:11px;padding:14px;font-size:12.5px;color:#854F0B;border-left:3px solid var(--warn)">
+        <strong>⚠ Rappel :</strong> Sylanty bloquera le démarrage si votre score de conformité chantier est inférieur à 70%.
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" onclick="closeModal();toast('Chantier créé · Constituez le dossier','🏗️');navTo('chantier-list')">Créer le chantier</button>
+    </div>
+  `);
+}
+
+// ── Add document modal ────────────────────────────────────────────
+function openAddDocModal(){
+  openModal(`
+    <div class="modal-head"><h3>📤 Ajouter un document</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Catégorie</label>
+        <select>
+          <option>🏛️ Identité de l'entreprise</option>
+          <option>👥 Obligations sociales URSSAF</option>
+          <option>💶 Obligations fiscales</option>
+          <option>🛡️ Assurances</option>
+          <option>🦺 Sécurité chantier</option>
+          <option>🏅 Qualifications</option>
+        </select>
+      </div>
+      <div class="field"><label>Type de document</label>
+        <select>
+          <option>Kbis / Extrait RNE</option>
+          <option>Attestation URSSAF</option>
+          <option>Assurance décennale</option>
+          <option>DUERP</option>
+          <option>Autre…</option>
+        </select>
+      </div>
+      <div class="field"><label>Date d'expiration</label><input type="date"></div>
+      <div style="border:2px dashed var(--line2);border-radius:14px;padding:30px;text-align:center;background:var(--bg);margin-bottom:14px;cursor:pointer" onclick="toast('Téléversement simulé','📤')">
+        <div style="font-size:32px;margin-bottom:8px">📤</div>
+        <div style="font-weight:600;font-size:14px;margin-bottom:4px">Glissez-déposez votre fichier ici</div>
+        <div style="font-size:12px;color:var(--ink3)">PDF, JPG, PNG, DOCX — max 10 Mo</div>
+        <button class="btn btn-sm btn-outline" style="margin-top:12px">Parcourir</button>
+      </div>
+      <div style="background:var(--obl-bg);border-radius:11px;padding:12px 14px;font-size:12px;color:var(--brand-dk)">
+        🤖 <strong>IA Sylanty</strong> lira automatiquement votre document et extraira la date d'expiration et les informations clés.
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" onclick="closeModal();toast('Document ajouté avec succès','✓')">Ajouter le document</button>
+    </div>
+  `);
+}
+
+// ── Share history modal ───────────────────────────────────────────
+function openShareHistoryModal(recipient){
+  openModal(`
+    <div class="modal-head"><h3>📜 Historique — ${recipient}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
+          <div class="alert-ic" style="background:var(--ok-bg);color:var(--ok)">✓</div>
+          <div style="flex:1"><div style="font-weight:600;font-size:13.5px">Documents validés</div><div style="font-size:12.5px;color:var(--ink3)">5 documents validés sans réserve</div></div>
+          <div style="font-size:12px;color:var(--ink3)">Hier 14:23</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
+          <div class="alert-ic" style="background:var(--obl-bg);color:var(--obl)">👁</div>
+          <div style="flex:1"><div style="font-weight:600;font-size:13.5px">Documents consultés</div><div style="font-size:12.5px;color:var(--ink3)">Kbis · URSSAF · Décennale · RC Pro</div></div>
+          <div style="font-size:12px;color:var(--ink3)">Hier 11:08</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
+          <div class="alert-ic" style="background:var(--obl-bg);color:var(--obl)">📨</div>
+          <div style="flex:1"><div style="font-weight:600;font-size:13.5px">Lien envoyé</div><div style="font-size:12.5px;color:var(--ink3)">Expiration le 22/06/2026</div></div>
+          <div style="font-size:12px;color:var(--ink3)">22 mai 09:30</div>
+        </div>
+        <div style="display:flex;gap:14px;padding:14px 0">
+          <div class="alert-ic" style="background:var(--bg);color:var(--ink3)">📝</div>
+          <div style="flex:1"><div style="font-weight:600;font-size:13.5px">Lien créé</div><div style="font-size:12.5px;color:var(--ink3)">Par Marc Dupont</div></div>
+          <div style="font-size:12px;color:var(--ink3)">22 mai 09:25</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Fermer</button>
+      <button class="btn btn-md btn-primary" onclick="closeModal();toast('Rappel envoyé','📨')">📨 Envoyer un rappel</button>
+    </div>
+  `);
+}
+
+// ── Settings / Profile modal ──────────────────────────────────────
+function openProfileModal(){
+  openModal(`
+    <div class="modal-head"><h3>⚙️ Profil & paramètres</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <h4 style="font-size:13px;margin-bottom:10px;color:var(--ink2)">Mon profil</h4>
+      <div class="field"><label>Nom</label><input type="text" value="${STATE.user.name}"></div>
+      <div class="field"><label>Email</label><input type="email" value="marc@elecpro-lyon.fr"></div>
+      <div class="field"><label>Rôle</label><input type="text" value="${STATE.user.role}" disabled style="background:var(--bg);color:var(--ink3)"></div>
+
+      <h4 style="font-size:13px;margin:20px 0 10px;color:var(--ink2)">Mon entreprise</h4>
+      <div class="field"><label>Raison sociale</label><input type="text" value="${STATE.company.name}"></div>
+      <div class="field-row">
+        <div class="field"><label>SIRET</label><input type="text" value="${STATE.company.siret}"></div>
+        <div class="field"><label>NAF</label><input type="text" value="${STATE.company.naf}" disabled style="background:var(--bg);color:var(--ink3)"></div>
+      </div>
+
+      <h4 style="font-size:13px;margin:20px 0 10px;color:var(--ink2)">Abonnement</h4>
+      <div style="background:linear-gradient(135deg,var(--brand),var(--teal));color:#fff;padding:16px 18px;border-radius:12px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;opacity:.8;margin-bottom:4px">Sylanty Pro</div>
+        <div style="font-size:24px;font-weight:800;font-family:'Sora'">29 € <span style="font-size:13px;font-weight:500;opacity:.7">/ mois HT</span></div>
+        <div style="font-size:12px;opacity:.85;margin-top:4px">Prochain prélèvement le 28 juin 2026</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" onclick="closeModal();toast('Profil enregistré','✓')">Enregistrer</button>
+    </div>
+  `);
+}
+
+// ════════════════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  // landing → signup
+  $$('[data-action="signup"]').forEach(b=>b.addEventListener('click',()=>showScreen('signup')));
+  $$('[data-action="login"]').forEach(b=>b.addEventListener('click',()=>{
+    // pour la démo, on saute direct
+    enterApp();
+  }));
+
+  // signup flow
+  let step = 1;
+  const updateSteps = ()=>{
+    $$('.auth-step-dot').forEach((d,i)=>{
+      d.classList.remove('active','done');
+      if(i+1 < step) d.classList.add('done');
+      else if(i+1===step) d.classList.add('active');
+    });
+    $$('.signup-step').forEach((s,i)=>s.style.display = (i+1===step)?'block':'none');
+  };
+  $$('[data-action="signup-next"]').forEach(b=>b.addEventListener('click',()=>{
+    if(step<3){ step++; updateSteps(); }
+    else { enterApp(); }
+  }));
+  $$('[data-action="signup-back"]').forEach(b=>b.addEventListener('click',()=>{
+    if(step>1){ step--; updateSteps(); }
+    else showScreen('landing');
+  }));
+
+  // NAF detection (simulated)
+  const nafSel = $('#signup-naf');
+  if(nafSel){
+    nafSel.addEventListener('change',()=>{
+      const v = nafSel.value;
+      STATE.company.naf = v;
+      const labels = {
+        '43.21A':'Électricien — installations électriques',
+        '43.99C':'Maçonnerie / gros œuvre',
+        '43.22A':'Plomberie / chauffage',
+        '41.20A':'Entreprise générale bâtiment'
+      };
+      STATE.company.nafLabel = labels[v];
+      $('#naf-preview').innerHTML = `<strong>${v}</strong> — ${labels[v]}<br><span style="font-size:12px">Sylanty va personnaliser le référentiel documentaire et le scoring selon votre activité.</span>`;
+    });
+  }
+
+  // sidebar navigation
+  $$('.sb-link').forEach(l=>{
+    l.addEventListener('click',()=>{
+      const t = l.dataset.nav;
+      if(t) navTo(t);
+    });
+  });
+  $$('.sb-sublink').forEach(l=>{
+    l.addEventListener('click',()=>{
+      const t = l.dataset.nav;
+      if(t) navTo(t);
+    });
+  });
+
+  // bell / notif panel
+  $('#bell')?.addEventListener('click', e=>{
+    e.stopPropagation();
+    $('#notif-panel').classList.toggle('show');
+  });
+  document.addEventListener('click', e=>{
+    if(!e.target.closest('#notif-panel') && !e.target.closest('#bell')){
+      $('#notif-panel')?.classList.remove('show');
+    }
+  });
+
+  // logout
+  $('#logout-btn')?.addEventListener('click',()=>{
+    $('.app').classList.remove('active');
+    showScreen('landing');
+  });
+
+  // init render
+  updateSteps();
+});
+
+function enterApp(){
+  showApp();
+  // Update company display
+  $('#sb-co-name').textContent = STATE.company.name;
+  $('#sb-co-naf').textContent = `NAF ${STATE.company.naf}`;
+  $('#sb-user-name').textContent = STATE.user.name;
+  $('#sb-user-role').textContent = STATE.user.role;
+  $('#sb-co-av').textContent = STATE.company.name.split(' ').map(w=>w[0]).slice(0,2).join('');
+
+  renderDashboard();
+  renderDocs();
+  renderScorePassport();
+  renderSalaries();
+  renderChantiers();
+  renderST();
+  renderRisques();
+  renderDOE();
+  renderPartage();
+  renderRoles();
+  renderNotifPanel();
+  navTo('dashboard');
+}
+
+// ════════════════════════════════════════════════════════════════════
+// ░░ INTÉGRATION BACK-END — API REST, auth, persistance ░░
+// ════════════════════════════════════════════════════════════════════
+const API = {
+  token: localStorage.getItem('sylanty_token') || null,
+  async req(method, url, body, isForm){
+    const headers = {};
+    if(this.token) headers.Authorization = 'Bearer ' + this.token;
+    const opts = { method, headers };
+    if(body){
+      if(isForm){ opts.body = body; }
+      else { headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+    }
+    const r = await fetch('/api' + url, opts);
+    if(r.status === 401){ setToken(null); showScreen('landing'); throw new Error('Session expirée'); }
+    if(!r.ok){ const e = await r.json().catch(()=>({error:'Erreur serveur'})); throw new Error(e.error || 'Erreur'); }
+    return r.json().catch(()=>({}));
+  },
+  get(u){ return this.req('GET', u); },
+  post(u,b,f){ return this.req('POST', u, b, f); },
+  patch(u,b){ return this.req('PATCH', u, b); },
+  del(u){ return this.req('DELETE', u); },
+};
+function setToken(t){ API.token = t; if(t) localStorage.setItem('sylanty_token', t); else localStorage.removeItem('sylanty_token'); }
+
+// ── Scoring : utiliser la clé métier du doc (et non l'UUID) ──
+function computeScore(){
+  const naf = NAF_WEIGHTS[STATE.company.naf] || NAF_WEIGHTS['43.21A'];
+  let pointsTotal = 0, pointsObtained = 0; const axes = {};
+  DOC_CATEGORIES.forEach(cat => {
+    let axeTotal = 0, axeObt = 0;
+    cat.docs.forEach(d => {
+      const coef = naf.coef[d.key || d.id] || 1.0;
+      const max = d.weight * coef; let obtained = 0;
+      if(d.status==='ok') obtained = max;
+      else if(d.status==='expire' && d.daysLeft > 30) obtained = max*0.7;
+      else if(d.status==='expire') obtained = max*0.3;
+      else if(d.status==='partial') obtained = max*0.5;
+      pointsTotal += max; pointsObtained += obtained; axeTotal += max; axeObt += obtained;
+    });
+    axes[cat.id] = Math.round((axeObt/axeTotal)*100) || 0;
+  });
+  const global = Math.round((pointsObtained/pointsTotal)*100) || 0;
+  let grade='D'; if(global>=90)grade='A+'; else if(global>=80)grade='A'; else if(global>=70)grade='B'; else if(global>=60)grade='C';
+  return { global, axes, grade, naf: naf.label };
+}
+
+// ── Chargement des données depuis l'API ──
+async function loadBootstrap(){
+  const d = await API.get('/bootstrap');
+  STATE.company = { name:d.company.name, siret:d.company.siret, naf:d.company.naf, nafLabel:d.company.naf_label,
+    director:d.company.director, address:d.company.address, employees:d.company.employees, revenue:d.company.revenue };
+  STATE.user = { name:d.user.name, initials:d.user.initials, role:d.user.role, email:d.user.email };
+  STATE.notifsEnabled = d.user.notifsEnabled;
+  DOC_CATEGORIES = d.docCategories || [];
+  EMPLOYEES = d.employees || [];
+  CHANTIERS = d.chantiers || [];
+  SUBCONTRACTORS = d.subcontractors || [];
+  RISKS = d.risks || [];
+  DOE = d.doe || [];
+  NOTIFICATIONS = d.notifications || [];
+}
+function renderAll(){
+  $('#sb-co-name').textContent = STATE.company.name;
+  $('#sb-co-naf').textContent = 'NAF ' + STATE.company.naf;
+  $('#sb-user-name').textContent = STATE.user.name;
+  $('#sb-user-role').textContent = STATE.user.role;
+  $('#sb-co-av').textContent = (STATE.company.name||'S').split(' ').map(w=>w[0]).slice(0,2).join('');
+  renderDashboard(); renderDocs(); renderScorePassport(); renderSalaries();
+  renderChantiers(); renderST(); renderRisques(); renderDOE(); renderPartage(); renderRoles(); renderNotifPanel();
+}
+
+// ── Suivi de la section courante (pour re-render après mutation) ──
+let _curNav = 'dashboard';
+const _navTo = navTo;
+navTo = function(s){ _curNav = s; return _navTo(s); };
+async function reloadView(){ await loadBootstrap(); renderAll(); _navTo(_curNav); }
+async function persist(action, msg, icon='✓'){
+  try { await action(); await reloadView(); if(msg) toast(msg, icon); }
+  catch(e){ toast(e.message || 'Erreur', '⚠️'); }
+}
+
+// ── enterApp : charge les données réelles puis affiche ──
+async function enterApp(){
+  try { showApp(); await loadBootstrap(); renderAll(); navTo('dashboard'); }
+  catch(e){ toast(e.message || 'Erreur de chargement', '⚠️'); showScreen('landing'); }
+}
+
+// ── Connexion ──
+function openLoginModal(){
+  openModal(`
+    <div class="modal-head"><h3>Connexion</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Email</label><input id="li-email" type="email" value="demo@sylanty.fr"></div>
+      <div class="field"><label>Mot de passe</label><input id="li-password" type="password" value="demo1234"></div>
+      <div class="naf-preview">Compte de démonstration prérempli : <strong>demo@sylanty.fr / demo1234</strong></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="li-go">Se connecter →</button>
+    </div>`);
+  $('#li-go').addEventListener('click', async ()=>{
+    try { const r = await API.post('/auth/login', { email:$('#li-email').value, password:$('#li-password').value });
+      setToken(r.token); closeModal(); await enterApp(); }
+    catch(e){ toast(e.message, '⚠️'); }
+  });
+}
+
+// ── Création / sauvegarde : on redéfinit les modales pour qu'elles persistent ──
+function openNewChantierModal(){
+  openModal(`
+    <div class="modal-head"><h3>🏗️ Créer un nouveau chantier</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Nom du chantier</label><input id="nc-name" type="text" placeholder="Ex : Réhabilitation immeuble Bellevue"></div>
+      <div class="field-row">
+        <div class="field"><label>Client</label><input id="nc-client" type="text" placeholder="Maître d'ouvrage"></div>
+        <div class="field"><label>Montant HT</label><input id="nc-montant" type="text" placeholder="0 €"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Date de début</label><input id="nc-start" type="date"></div>
+        <div class="field"><label>Date de fin</label><input id="nc-end" type="date"></div>
+      </div>
+      <div class="field"><label>Statut initial</label>
+        <select id="nc-status"><option value="appel_offres">📑 Appel d'offres</option><option value="en_cours">🏗️ En cours</option></select>
+      </div>
+      <div class="field"><label>Adresse</label><input id="nc-address" type="text" placeholder="Adresse du chantier"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="nc-go">Créer le chantier</button>
+    </div>`);
+  $('#nc-go').addEventListener('click', ()=>{
+    const name = $('#nc-name').value.trim(); if(!name) return toast('Nom requis','⚠️');
+    closeModal();
+    persist(()=>API.post('/chantiers', { name, client:$('#nc-client').value, montant:$('#nc-montant').value,
+      start:$('#nc-start').value, end:$('#nc-end').value, status:$('#nc-status').value, address:$('#nc-address').value }),
+      'Chantier créé', '🏗️').then(()=>navTo('chantier-list'));
+  });
+}
+
+function openAddDocModal(){
+  const cats = [
+    {id:'identite',n:"🏛️ Identité de l'entreprise",icon:'🏛️',color:'#7b74d9'},
+    {id:'social',n:'👥 Obligations sociales URSSAF',icon:'👥',color:'#e09a42'},
+    {id:'fiscal',n:'💶 Obligations fiscales',icon:'💶',color:'#4dbe98'},
+    {id:'assur',n:'🛡️ Assurances',icon:'🛡️',color:'#1f6feb'},
+    {id:'secu',n:'🦺 Sécurité chantier',icon:'🦺',color:'#d63b3b'},
+    {id:'qual',n:'🏅 Qualifications',icon:'🏅',color:'#0fb5a0'},
+  ];
+  openModal(`
+    <div class="modal-head"><h3>📤 Ajouter un document</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Catégorie</label><select id="ad-cat">${cats.map((c,i)=>`<option value="${i}">${c.n}</option>`).join('')}</select></div>
+      <div class="field"><label>Nom du document</label><input id="ad-name" type="text" placeholder="Ex : Attestation URSSAF"></div>
+      <div class="field"><label>Criticité</label><select id="ad-crit"><option value="critique">🔴 Critique</option><option value="obligatoire">🔵 Obligatoire</option><option value="recommande">🟡 Recommandé</option></select></div>
+      <div class="field"><label>Date d'expiration (optionnel)</label><input id="ad-expiry" type="date"></div>
+      <div class="field"><label>Fichier (optionnel)</label><input id="ad-file" type="file"></div>
+      <div style="background:var(--obl-bg);border-radius:11px;padding:12px 14px;font-size:12px;color:var(--brand-dk)">🤖 <strong>IA Sylanty</strong> lira votre document et en extraira les informations clés.</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="ad-go">Ajouter le document</button>
+    </div>`);
+  $('#ad-go').addEventListener('click', async ()=>{
+    const name = $('#ad-name').value.trim(); if(!name) return toast('Nom requis','⚠️');
+    const c = cats[+$('#ad-cat').value];
+    const expiry = $('#ad-expiry').value || null;
+    const file = $('#ad-file').files[0];
+    closeModal();
+    await persist(async ()=>{
+      const r = await API.post('/documents', { catId:c.id, catName:c.n.replace(/^[^\s]+\s/,''), catIcon:c.icon, catColor:c.color,
+        name, crit:$('#ad-crit').value, status: file ? 'ok' : (expiry ? 'ok':'ok'), expiry });
+      if(file){ const fd = new FormData(); fd.append('file', file); await API.post('/documents/'+r.id+'/file', fd, true); }
+    }, 'Document ajouté', '✓');
+  });
+}
+
+function openInviteUserModal(){
+  const roles = [['admin_co','🏢 Admin entreprise'],['qse','🦺 Responsable QSE'],['charge_aff','📋 Chargé d\'affaires'],['collab','👤 Collaborateur'],['externe','🤝 Partenaire externe']];
+  openModal(`
+    <div class="modal-head"><h3>👤 Inviter un utilisateur</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Email</label><input id="iv-email" type="email" placeholder="nom@entreprise.fr"></div>
+      <div class="field"><label>Rôle</label><select id="iv-role">${roles.map(r=>`<option value="${r[0]}">${r[1]}</option>`).join('')}</select></div>
+      <div style="background:var(--obl-bg);border-radius:11px;padding:14px;font-size:12.5px;color:var(--brand-dk);border-left:3px solid var(--brand)"><strong>💡</strong> L'utilisateur recevra un email avec un lien d'activation.</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="iv-go">📨 Envoyer l'invitation</button>
+    </div>`);
+  $('#iv-go').addEventListener('click', ()=>{
+    const email = $('#iv-email').value.trim(); if(!email) return toast('Email requis','⚠️');
+    closeModal();
+    persist(()=>API.post('/invites', { email, roleId:$('#iv-role').value }), 'Invitation envoyée', '📨');
+  });
+}
+
+function openShareModal(){
+  const types = ['CSPS','MOE','Client','Sous-traitant'];
+  openModal(`
+    <div class="modal-head"><h3>🔗 Nouveau partage sécurisé</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Destinataire</label><input id="sh-recipient" type="text" placeholder="Ex : CSPS — Bureau Veritas"></div>
+      <div class="field"><label>Type</label><select id="sh-type">${types.map(t=>`<option>${t}</option>`).join('')}</select></div>
+      <div class="field"><label>Chantier concerné</label><select id="sh-chantier"><option value="">— Tous les documents société —</option>${CHANTIERS.map(c=>`<option>${c.name}</option>`).join('')}</select></div>
+      <div class="naf-preview">🔒 Un lien sécurisé unique sera généré. Vous pourrez suivre les consultations et validations.</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="sh-go">Générer le lien</button>
+    </div>`);
+  $('#sh-go').addEventListener('click', ()=>{
+    const recipient = $('#sh-recipient').value.trim(); if(!recipient) return toast('Destinataire requis','⚠️');
+    closeModal();
+    persist(()=>API.post('/shares', { recipient, type:$('#sh-type').value, chantier:$('#sh-chantier').value }), 'Lien de partage généré', '🔗');
+  });
+}
+
+function openProfileModal(){
+  openModal(`
+    <div class="modal-head"><h3>⚙️ Profil & paramètres</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <h4 style="font-size:13px;margin-bottom:10px;color:var(--ink2)">Mon profil</h4>
+      <div class="field"><label>Nom</label><input id="pf-name" type="text" value="${STATE.user.name||''}"></div>
+      <div class="field"><label>Email</label><input type="email" value="${STATE.user.email||''}" disabled style="background:var(--bg);color:var(--ink3)"></div>
+      <h4 style="font-size:13px;margin:20px 0 10px;color:var(--ink2)">Mon entreprise</h4>
+      <div class="field"><label>Raison sociale</label><input id="pf-company" type="text" value="${STATE.company.name||''}"></div>
+      <div class="field-row">
+        <div class="field"><label>SIRET</label><input id="pf-siret" type="text" value="${STATE.company.siret||''}"></div>
+        <div class="field"><label>NAF</label><input type="text" value="${STATE.company.naf||''}" disabled style="background:var(--bg);color:var(--ink3)"></div>
+      </div>
+      <div class="field"><label>Adresse</label><input id="pf-address" type="text" value="${STATE.company.address||''}"></div>
+      <h4 style="font-size:13px;margin:20px 0 10px;color:var(--ink2)">Notifications email</h4>
+      <label style="display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:8px"><input id="pf-n1" type="checkbox" ${STATE.notifsEnabled?.email_critical?'checked':''}> Alertes critiques</label>
+      <label style="display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:8px"><input id="pf-n2" type="checkbox" ${STATE.notifsEnabled?.email_expiration?'checked':''}> Expirations à venir</label>
+      <label style="display:flex;align-items:center;gap:10px;font-size:13px"><input id="pf-n3" type="checkbox" ${STATE.notifsEnabled?.email_chantier?'checked':''}> Mises à jour chantiers</label>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="pf-go">Enregistrer</button>
+    </div>`);
+  $('#pf-go').addEventListener('click', ()=>{
+    closeModal();
+    persist(async ()=>{
+      await API.patch('/profile', { name:$('#pf-name').value, companyName:$('#pf-company').value, siret:$('#pf-siret').value, address:$('#pf-address').value });
+      await API.patch('/settings/notifs', { email_critical:$('#pf-n1').checked, email_expiration:$('#pf-n2').checked, email_chantier:$('#pf-n3').checked });
+    }, 'Profil enregistré', '✓');
+  });
+}
+
+// ── DOE : scan produit + transmission (persistés) ──
+function openScanModal(){
+  openModal(`
+    <div class="modal-head"><h3>📷 Scanner un passeport produit</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div style="text-align:center;padding:24px;border:2px dashed var(--line2);border-radius:14px;margin-bottom:18px">
+        <div style="font-size:38px;margin-bottom:8px">📱</div>
+        <div style="font-weight:600">Scannez le QR code du produit posé</div>
+        <div style="font-size:13px;color:var(--ink2)">Sylanty récupère le passeport DPP via le registre européen.</div>
+      </div>
+      <div class="field"><label>Chantier (DOE)</label><select id="sc-doe">${DOE.map(c=>`<option value="${c.id}">${c.chantierName}</option>`).join('')}</select></div>
+      <div class="field"><label>Produit</label><input id="sc-name" type="text" placeholder="Ex : Tableau Schneider Prisma G"></div>
+      <div class="field-row">
+        <div class="field"><label>Fabricant</label><input id="sc-fab" type="text" placeholder="Schneider Electric"></div>
+        <div class="field"><label>Référence</label><input id="sc-ref" type="text" placeholder="LVSPGX42"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Quantité</label><input id="sc-qte" type="text" placeholder="6 u."></div>
+        <div class="field"><label>Zone</label><input id="sc-zone" type="text" placeholder="Niveau 2"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="sc-go">Ajouter au DOE</button>
+    </div>`);
+  $('#sc-go').addEventListener('click', ()=>{
+    const name = $('#sc-name').value.trim(); if(!name) return toast('Nom du produit requis','⚠️');
+    const doeId = $('#sc-doe').value; closeModal();
+    persist(()=>API.post('/doe/'+doeId+'/produits', { name, fabricant:$('#sc-fab').value, ref:$('#sc-ref').value,
+      qte:$('#sc-qte').value, zone:$('#sc-zone').value, docs:{dpp:'ok',ce:'ok',epd:'manquant',dop:'manquant',notice:'manquant'} }),
+      'Produit ajouté au DOE', '📦').then(()=>navTo('chantier-doe'));
+  });
+}
+function openDoeTransmitModal(doeId){
+  const c = DOE.find(x=>x.id===doeId) || DOE.find(x=>x.chantierId===doeId);
+  if(!c) return;
+  openModal(`
+    <div class="modal-head"><h3>📤 Transmettre le DOE — ${c.chantierName}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="alert-item obl" style="margin-bottom:16px"><div class="alert-ic" style="background:var(--ok-bg);color:var(--ok)">✓</div><div class="alert-body"><div class="alert-title">DOE prêt à transmettre</div><div class="alert-meta">${c.produits.length} produits · Maître d'ouvrage : ${c.moa}</div></div></div>
+      <div class="field"><label>Email du maître d'ouvrage</label><input id="dt-email" type="email" placeholder="contact@moa.fr"></div>
+      <div class="naf-preview">🔗 Un lien sécurisé sera généré. Accès conservé 25 ans (CPR).</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-ok" id="dt-go">Générer le lien &amp; transmettre</button>
+    </div>`);
+  $('#dt-go').addEventListener('click', ()=>{
+    closeModal();
+    persist(()=>API.post('/doe/'+c.id+'/transmit', {}), 'DOE transmis au maître d\'ouvrage', '📤').then(()=>navTo('collab-partage'));
+  });
+}
+
+// ── Création salarié / sous-traitant / risque ──
+function openNewEmployeeModal(){
+  openModal(`
+    <div class="modal-head"><h3>👤 Ajouter un salarié</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Nom complet</label><input id="ne-name" type="text" placeholder="Prénom Nom"></div>
+      <div class="field"><label>Poste</label><input id="ne-role" type="text" placeholder="Ex : Électricien N2"></div>
+      <div class="field-row">
+        <div class="field"><label>Email</label><input id="ne-email" type="email" placeholder="nom@entreprise.fr"></div>
+        <div class="field"><label>Téléphone</label><input id="ne-phone" type="text" placeholder="+33 6 ..."></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Date de naissance</label><input id="ne-birth" type="date"></div>
+        <div class="field"><label>Date d'embauche</label><input id="ne-start" type="date"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="ne-go">Ajouter le salarié</button>
+    </div>`);
+  $('#ne-go').addEventListener('click', ()=>{
+    const name = $('#ne-name').value.trim(); if(!name) return toast('Nom requis','⚠️');
+    closeModal();
+    persist(()=>API.post('/employees', { name, role:$('#ne-role').value, email:$('#ne-email').value,
+      phone:$('#ne-phone').value, birth:$('#ne-birth').value, start:$('#ne-start').value }),
+      'Salarié ajouté', '👤').then(()=>navTo('conf-salaries'));
+  });
+}
+function openNewSTModal(){
+  openModal(`
+    <div class="modal-head"><h3>🤝 Nouveau sous-traitant</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>Raison sociale</label><input id="ns-name" type="text" placeholder="Ex : Câblage Express"></div>
+      <div class="field-row">
+        <div class="field"><label>SIRET</label><input id="ns-siret" type="text" placeholder="000 000 000 00000"></div>
+        <div class="field"><label>Montant ST</label><input id="ns-montant" type="text" placeholder="0 €"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Email</label><input id="ns-email" type="email" placeholder="contact@st.fr"></div>
+        <div class="field"><label>Téléphone</label><input id="ns-phone" type="text"></div>
+      </div>
+      <div class="field"><label>Chantier concerné</label><select id="ns-chantier"><option value="">—</option>${CHANTIERS.map(c=>`<option>${c.name}</option>`).join('')}</select></div>
+      <div class="naf-preview">📨 Un dossier de 7 pièces obligatoires sera créé. Vous validerez chaque document à réception.</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="ns-go">Créer le sous-traitant</button>
+    </div>`);
+  $('#ns-go').addEventListener('click', ()=>{
+    const name = $('#ns-name').value.trim(); if(!name) return toast('Raison sociale requise','⚠️');
+    closeModal();
+    persist(()=>API.post('/subcontractors', { name, siret:$('#ns-siret').value, montant:$('#ns-montant').value,
+      email:$('#ns-email').value, phone:$('#ns-phone').value, chantier:$('#ns-chantier').value }),
+      'Sous-traitant créé', '🤝').then(()=>navTo('chantier-st'));
+  });
+}
+function openNewRiskModal(){
+  openModal(`
+    <div class="modal-head"><h3>🔍 Analyser un document / Ajouter un risque</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div style="text-align:center;padding:20px;border:2px dashed var(--line2);border-radius:14px;margin-bottom:16px">
+        <div style="font-size:32px">🤖</div><div style="font-weight:600">Importez un CCTP / CCAP — l'IA extrait les risques</div>
+        <div style="font-size:12px;color:var(--ink3)">ou saisissez un risque manuellement ci-dessous</div>
+      </div>
+      <div class="field"><label>Catégorie</label><input id="nr-cat" type="text" placeholder="Ex : Pénalité retard"></div>
+      <div class="field"><label>Description</label><input id="nr-desc" type="text" placeholder="Ex : 1/3000 du marché par jour"></div>
+      <div class="field-row">
+        <div class="field"><label>Sévérité</label><select id="nr-sev"><option value="high">🔴 Élevée</option><option value="medium">🟡 Moyenne</option><option value="low">🟢 Faible</option></select></div>
+        <div class="field"><label>Référence</label><input id="nr-ref" type="text" placeholder="CCAP §7.2"></div>
+      </div>
+      <div class="field"><label>Impact</label><input id="nr-impact" type="text" placeholder="Ex : Jusqu'à 24 250 €"></div>
+      <div class="field"><label>Échéance</label><input id="nr-deadline" type="text" placeholder="Ex : Réception au 30/09/2026"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-md btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-md btn-primary" id="nr-go">Ajouter le risque</button>
+    </div>`);
+  $('#nr-go').addEventListener('click', ()=>{
+    const cat = $('#nr-cat').value.trim(); if(!cat) return toast('Catégorie requise','⚠️');
+    closeModal();
+    persist(()=>API.post('/risks', { cat, desc:$('#nr-desc').value, sev:$('#nr-sev').value, ref:$('#nr-ref').value,
+      impact:$('#nr-impact').value, deadline:$('#nr-deadline').value, detail:$('#nr-desc').value, actions:[] }),
+      'Risque ajouté', '🔍').then(()=>navTo('chantier-risques'));
+  });
+}
+
+// ── Override des rendus pour câbler les actions par ligne ──
+// Dépôt réel d'un document (marque OK + upload fichier optionnel)
+window.depositDoc = function(docId){
+  const inp = document.createElement('input'); inp.type='file';
+  inp.onchange = ()=>{
+    const f = inp.files[0];
+    persist(async ()=>{
+      if(f){ const fd=new FormData(); fd.append('file', f); await API.post('/documents/'+docId+'/file', fd, true); }
+      else { await API.patch('/documents/'+docId, { status:'ok' }); }
+    }, 'Document déposé', '📤');
+  };
+  inp.click();
+};
+window.depositEmpDoc = function(docId){
+  const inp = document.createElement('input'); inp.type='file';
+  inp.onchange = ()=>{
+    const f = inp.files[0]; if(!f) return;
+    closeModal();
+    persist(async ()=>{ const fd=new FormData(); fd.append('file', f); await API.post('/employee-docs/'+docId+'/file', fd, true); }, 'Document déposé', '📤');
+  };
+  inp.click();
+};
+window.validateSTDoc = function(docId){ closeModal(); persist(()=>API.patch('/subcontractor-docs/'+docId, { status:'ok' }), 'Document validé', '✓'); };
+
+// ── Visualiser / Télécharger un PDF (récupéré avec le token, via blob) ──
+async function fetchBlob(url){
+  const r = await fetch(url, { headers: API.token ? { Authorization:'Bearer '+API.token } : {} });
+  if(!r.ok) throw new Error('Fichier indisponible');
+  return r.blob();
+}
+// kind = 'documents' (société) ou 'employee-docs' (salarié)
+window.viewDoc = async function(kind, id){
+  try { const b = await fetchBlob('/api/'+kind+'/'+id+'/view');
+    const u = URL.createObjectURL(b); window.open(u, '_blank');
+    setTimeout(()=>URL.revokeObjectURL(u), 60000);
+  } catch(e){ toast(e.message,'⚠️'); }
+};
+window.downloadDoc = async function(kind, id, filename){
+  try { const b = await fetchBlob('/api/'+kind+'/'+id+'/view?download=1');
+    const u = URL.createObjectURL(b); const a = document.createElement('a');
+    a.href = u; a.download = (filename||'document')+'.pdf'; document.body.appendChild(a); a.click();
+    a.remove(); setTimeout(()=>URL.revokeObjectURL(u), 5000); toast('Téléchargement lancé','⤓');
+  } catch(e){ toast(e.message,'⚠️'); }
+};
+
+// Câblage des actions par ligne via délégation (documents + sous-traitants + PDF)
+document.addEventListener('click', (e)=>{
+  const dep = e.target.closest('[data-deposit]');
+  if(dep){ e.stopPropagation(); window.depositDoc(dep.getAttribute('data-deposit')); return; }
+  const depEmp = e.target.closest('[data-deposit-emp]');
+  if(depEmp){ e.stopPropagation(); window.depositEmpDoc(depEmp.getAttribute('data-deposit-emp')); return; }
+  const val = e.target.closest('[data-st-validate]');
+  if(val){ e.stopPropagation(); window.validateSTDoc(val.getAttribute('data-st-validate')); return; }
+  const view = e.target.closest('[data-view-doc]');
+  if(view){ e.stopPropagation(); window.viewDoc(view.getAttribute('data-view-kind')||'documents', view.getAttribute('data-view-doc')); return; }
+  const dl = e.target.closest('[data-dl-doc]');
+  if(dl){ e.stopPropagation(); window.downloadDoc(dl.getAttribute('data-dl-kind')||'documents', dl.getAttribute('data-dl-doc'), dl.getAttribute('data-dl-name')); return; }
+});
+
+// ── Auth wiring (remplace les handlers de démo) ──
+window.addEventListener('DOMContentLoaded', ()=>{
+  let step = 1;
+  const dots = $$('#signup .auth-step-dot');
+  const steps = $$('#signup .signup-step');
+  function updateSteps(){
+    dots.forEach((d,i)=>{ d.classList.remove('active','done'); if(i+1<step)d.classList.add('done'); else if(i+1===step)d.classList.add('active'); });
+    steps.forEach((s,i)=> s.style.display = (i+1===step)?'block':'none');
+  }
+  const clone = sel => $$(sel).map(b=>{ const n=b.cloneNode(true); b.replaceWith(n); return n; });
+
+  clone('[data-action="signup"]').forEach(b=>b.addEventListener('click', ()=>{ step=1; updateSteps(); showScreen('signup'); }));
+  clone('[data-action="login"]').forEach(b=>b.addEventListener('click', openLoginModal));
+  clone('[data-action="signup-back"]').forEach(b=>b.addEventListener('click', ()=>{ if(step>1){step--;updateSteps();} else showScreen('landing'); }));
+  clone('[data-action="signup-next"]').forEach(b=>b.addEventListener('click', async ()=>{
+    if(step<3){ step++; updateSteps(); return; }
+    try {
+      const r = await API.post('/auth/signup', {
+        name: $('#su-name')?.value, email: $('#su-email')?.value, password: $('#su-password')?.value,
+        companyName: $('#su-company')?.value, siret: $('#su-siret')?.value, naf: $('#signup-naf')?.value,
+      });
+      setToken(r.token); await enterApp();
+    } catch(e){ toast(e.message, '⚠️'); }
+  }));
+  updateSteps();
+
+  // logout : effacer le token aussi
+  $('#logout-btn')?.addEventListener('click', ()=> setToken(null));
+
+  // auto-login si token présent
+  if(API.token){ enterApp(); }
+});
+
+</script>
+</body>
+</html>
